@@ -19,10 +19,10 @@ import { pluralize } from '../../util/pluralize'
 import './CollectionDetailsBody.scss'
 
 const buildRelatedUrlsList = (relatedUrls) => {
-  if (!relatedUrls.length) return null
+  if (relatedUrls == null || !relatedUrls.length) return null
 
   const relatedUrlsList = []
-  if (relatedUrls[4] && relatedUrls[4].urls.length) {
+  if (relatedUrls[4] && relatedUrls[4].urls && relatedUrls[4].urls.length) {
     relatedUrls[4].urls.forEach((url, i) => {
       const key = `highlighted_url_${i}`
       relatedUrlsList.push(
@@ -43,7 +43,7 @@ const buildRelatedUrlsList = (relatedUrls) => {
 }
 
 const buildScienceKeywordList = (scienceKeywords) => {
-  if (!scienceKeywords.length) return null
+  if (scienceKeywords == null || !scienceKeywords.length) return null
 
   const scienceKeywordList = (
     <ul className="collection-details-body__keywords">
@@ -113,20 +113,20 @@ export const CollectionDetailsBody = ({
   onToggleRelatedUrlsModal
 }) => {
   const {
-    abstract,
     associatedDois,
     dataCenters,
     directDistributionInformation,
     doi,
-    hasAllMetadata,
     gibsLayers,
+    hasAllMetadata,
     nativeDataFormats,
     relatedUrls,
-    services,
     scienceKeywords,
+    services,
     shortName,
     spatial,
     temporal,
+    title,
     urls,
     versionId
   } = collectionMetadata
@@ -277,16 +277,18 @@ export const CollectionDetailsBody = ({
                     <>
                       <dt>Temporal Extent</dt>
                       <dd>
-                        {temporal.map((entry, i) => {
-                          const key = `temporal_entry_${i}`
-                          return <span key={key}>{entry}</span>
-                        })}
+                        {
+                          temporal.map((entry, i) => {
+                            const key = `temporal_entry_${i}`
+                            return <span key={key}>{entry}</span>
+                          })
+                        }
                       </dd>
                     </>
                   )
                 }
                 {
-                  nativeDataFormats.length > 0 && (
+                  nativeDataFormats && nativeDataFormats.length > 0 && (
                     <>
                       <dt>{`Native ${pluralize('Format', nativeDataFormats.length)}`}</dt>
                       <dd>
@@ -384,7 +386,7 @@ export const CollectionDetailsBody = ({
           </div>
           <div className="row collection-details-body__row">
             <div className="col collection-details-body__abstract">
-              {abstract}
+              {title}
             </div>
           </div>
           <div className="row collection-details-body__row">
