@@ -110,7 +110,9 @@ export default class OpenSearchGranuleRequest extends Request {
         }
       }
 
-      const granuleResults = [].concat(entry)
+      // Use `.filter(Boolean)` to filter out elements that evaluate to `false` due to
+      // the XML parser sometimes returning an empty element based on the XML response
+      const granuleResults = [].concat(entry).filter(Boolean)
 
       granuleResults.map((granule) => {
         const updatedGranule = granule
