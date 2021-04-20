@@ -70,7 +70,7 @@ export default class CollectionGraphQlRequest extends GraphQlRequest {
     }
 
     if (collection && tags) {
-      transformedCollection.isCwic = hasTag({ tags }, 'org.ceos.wgiss.cwic.granules.prod', '')
+      transformedCollection.isOpenSearch = hasTag({ tags }, 'opensearch.granule.osdd', '')
         && granuleCount === 0
       transformedCollection.hasMapImagery = hasTag(collection, 'gibs')
     }

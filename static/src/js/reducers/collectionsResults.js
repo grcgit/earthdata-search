@@ -97,7 +97,7 @@ const collectionsResultsReducer = (state = initialState, action) => {
     case UPDATE_COLLECTION_SEARCH_GRANULES: {
       const { payload } = action
 
-      const { byId = {} } = state
+      const { byId = {}, loadTime } = state
 
       const newById = {}
 
@@ -108,7 +108,10 @@ const collectionsResultsReducer = (state = initialState, action) => {
 
         newById[conceptId] = {
           ...existingData,
-          granules: granuleResults
+          granules: {
+            loadTime,
+            ...granuleResults
+          }
         }
       })
 

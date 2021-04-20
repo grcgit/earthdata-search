@@ -225,7 +225,7 @@ describe('changePath', () => {
     })
   })
 
-  test('updates the store if there is not a projectId', () => {
+  test('updates the store if there is not a projectId', async () => {
     const updateStoreMock = jest.spyOn(actions, 'updateStore').mockImplementation(() => jest.fn())
     const getCollectionsMock = jest.spyOn(actions, 'getCollections').mockImplementation(() => jest.fn())
     const getTimelineMock = jest.spyOn(actions, 'getTimeline').mockImplementation(() => jest.fn())
@@ -255,7 +255,7 @@ describe('changePath', () => {
       }
     })
 
-    store.dispatch(urlQuery.changePath(newPath))
+    await store.dispatch(urlQuery.changePath(newPath))
 
     expect(updateStoreMock).toBeCalledTimes(1)
     expect(updateStoreMock).toBeCalledWith(
@@ -296,7 +296,7 @@ describe('changePath', () => {
 
   describe('when a path is provided', () => {
     describe('when the path matches granule search', () => {
-      test('calls getFocusedCollection action', () => {
+      test('calls getFocusedCollection action', async () => {
         const getCollectionsMock = jest.spyOn(actions, 'getCollections').mockImplementation(() => jest.fn())
         const getFocusedCollectionMock = jest.spyOn(actions, 'getFocusedCollection').mockImplementation(() => jest.fn())
 
@@ -326,7 +326,7 @@ describe('changePath', () => {
           }
         })
 
-        store.dispatch(urlQuery.changePath(newPath))
+        await store.dispatch(urlQuery.changePath(newPath))
 
         expect(getCollectionsMock).toBeCalledTimes(1)
         expect(getFocusedCollectionMock).toBeCalledTimes(1)
@@ -334,7 +334,7 @@ describe('changePath', () => {
     })
 
     describe('when the path matches collection details', () => {
-      test('calls getFocusedCollection action', () => {
+      test('calls getFocusedCollection action', async () => {
         const getCollectionsMock = jest.spyOn(actions, 'getCollections').mockImplementation(() => jest.fn())
         const getFocusedCollectionMock = jest.spyOn(actions, 'getFocusedCollection').mockImplementation(() => jest.fn())
 
@@ -364,7 +364,7 @@ describe('changePath', () => {
           }
         })
 
-        store.dispatch(urlQuery.changePath(newPath))
+        await store.dispatch(urlQuery.changePath(newPath))
 
         expect(getCollectionsMock).toBeCalledTimes(1)
         expect(getFocusedCollectionMock).toBeCalledTimes(1)
@@ -372,7 +372,7 @@ describe('changePath', () => {
     })
 
     describe('when the path matches subscription list', () => {
-      test('calls getFocusedCollection action', () => {
+      test('calls getFocusedCollection action', async () => {
         const getCollectionsMock = jest.spyOn(actions, 'getCollections').mockImplementation(() => jest.fn())
         const getFocusedCollectionMock = jest.spyOn(actions, 'getFocusedCollection').mockImplementation(() => jest.fn())
 
@@ -402,7 +402,7 @@ describe('changePath', () => {
           }
         })
 
-        store.dispatch(urlQuery.changePath(newPath))
+        await store.dispatch(urlQuery.changePath(newPath))
 
         expect(getCollectionsMock).toBeCalledTimes(1)
         expect(getFocusedCollectionMock).toBeCalledTimes(1)
@@ -410,7 +410,7 @@ describe('changePath', () => {
     })
 
     describe('when the path matches granule details', () => {
-      test('calls getFocusedCollection action', () => {
+      test('calls getFocusedCollection action', async () => {
         const getCollectionsMock = jest.spyOn(actions, 'getCollections').mockImplementation(() => jest.fn())
         const getFocusedCollectionMock = jest.spyOn(actions, 'getFocusedCollection').mockImplementation(() => jest.fn())
         const getFocusedGranuleMock = jest.spyOn(actions, 'getFocusedGranule').mockImplementation(() => jest.fn())
@@ -442,7 +442,7 @@ describe('changePath', () => {
           }
         })
 
-        store.dispatch(urlQuery.changePath(newPath))
+        await store.dispatch(urlQuery.changePath(newPath))
 
         expect(getCollectionsMock).toBeCalledTimes(1)
         expect(getFocusedCollectionMock).toBeCalledTimes(1)

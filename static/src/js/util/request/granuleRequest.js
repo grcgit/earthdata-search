@@ -71,16 +71,15 @@ export default class GranuleRequest extends CmrRequest {
     // If the response status code is not 200, return unaltered data
     // If the status code is 200, it doesn't exist in the response
     const { statusCode = 200 } = data
+
     if (statusCode !== 200) return data
 
     const { feed = {} } = data
     const { entry = [] } = feed
 
-    entry.map(granule => formatGranuleResult(granule, this.earthdataEnvironment))
-
     return {
       feed: {
-        entry
+        entry: entry.map(granule => formatGranuleResult(granule, this.earthdataEnvironment))
       }
     }
   }

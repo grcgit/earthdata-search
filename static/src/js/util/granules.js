@@ -39,6 +39,12 @@ export const withAdvancedSearch = (granuleParams, advancedSearch) => {
   return mergedParams
 }
 
+/**
+ * Extrapolate an estimated granule size using the provided granules and total granule count
+ * @param {*} granuleCount Count of how many granules we're estimating the size of
+ * @param {*} granules Metadata for granules to be used in calculation
+ * @returns {Object} Object containing details pertaining to the average size of a granule
+ */
 export const calculateGranuleSizeEstimates = (granuleCount, granules) => {
   const payload = {}
 
@@ -64,6 +70,12 @@ export const calculateGranuleSizeEstimates = (granuleCount, granules) => {
   return payload
 }
 
+/**
+ * Formats granule metadata to add/format fields used by EDSC
+ * @param {Object} granule Metadata of a single granule
+ * @param {String} earthdataEnvironment The CMR environment the metadata came from
+ * @returns {Object} Granule with updated/added fields
+ */
 export const formatGranuleResult = (granule, earthdataEnvironment) => {
   const updatedGranule = snakecaseKeys(granule)
 

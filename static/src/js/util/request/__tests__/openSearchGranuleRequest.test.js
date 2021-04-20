@@ -89,7 +89,7 @@ describe('OpenSearchGranuleRequest#transformResponse', () => {
 
       const { feed } = transformedResponse
       const { entry } = feed
-      expect(entry[0].browse_url)
+      expect(entry[0].browseUrl)
         .toEqual(undefined)
     })
 
@@ -113,7 +113,7 @@ describe('OpenSearchGranuleRequest#transformResponse', () => {
 
       const { feed } = transformedResponse
       const { entry } = feed
-      expect(entry[0].browse_url)
+      expect(entry[0].browseUrl)
         .toEqual('https://uops.nrsc.gov.in//imgarchive/IRS1C/LISS/1996/NOV/14/083042LG.319.jpeg')
     })
   })

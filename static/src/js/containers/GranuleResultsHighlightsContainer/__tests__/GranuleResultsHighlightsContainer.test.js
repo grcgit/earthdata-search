@@ -67,7 +67,8 @@ describe('mapStateToProps', () => {
       collectionsSearch: {},
       focusedCollectionGranuleMetadata: {},
       focusedCollectionId: 'collectionId',
-      focusedCollectionMetadata: {}
+      focusedCollectionMetadata: {},
+      granuleSearchResults: {}
     }
 
     expect(mapStateToProps(store)).toEqual(expectedState)

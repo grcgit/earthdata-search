@@ -177,8 +177,7 @@ export const getFocusedCollection = () => async (dispatch, getState) => {
     subscriberId: username
   })
     .then((response) => {
-      const { data = {} } = response
-      const { collection } = data
+      const { data: collection = {} } = response
 
       // If no results were returned, graphql will return `null`
       if (collection) {

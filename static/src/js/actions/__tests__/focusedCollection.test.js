@@ -146,7 +146,7 @@ describe('getFocusedCollection', () => {
             type: UPDATE_COLLECTION_METADATA,
             payload: [
               expect.objectContaining({
-                id: 'C10000000000-EDSC'
+                conceptId: 'C10000000000-EDSC'
               })
             ]
           })
@@ -216,7 +216,7 @@ describe('getFocusedCollection', () => {
               type: UPDATE_COLLECTION_METADATA,
               payload: [
                 expect.objectContaining({
-                  id: 'C10000000000-EDSC'
+                  conceptId: 'C10000000000-EDSC'
                 })
               ]
             })
@@ -365,7 +365,7 @@ describe('getCollectionSubscriptions', () => {
         metadata: {
           collections: {
             'C10000000000-EDSC': {
-              id: 'C10000000000-EDSC',
+              conceptId: 'C10000000000-EDSC',
               subscriptions: {
                 items: [
                   'original items'
@@ -424,7 +424,7 @@ describe('getCollectionSubscriptions', () => {
         metadata: {
           collections: {
             'C10000000000-EDSC': {
-              id: 'C10000000000-EDSC',
+              conceptId: 'C10000000000-EDSC',
               subscriptions: {
                 items: [
                   'original items'

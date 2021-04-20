@@ -21,7 +21,7 @@ function setup(overrideProps) {
     collectionsMetadata: {
       collectionId: {
         summary: 'test summary',
-        datasetId: 'test dataset id',
+        title: 'test dataset id',
         granuleCount: 42,
         hasFormats: false,
         hasMapImagery: false,
@@ -171,7 +171,7 @@ describe('CollectionResultsBody component', () => {
       collectionsMetadata: {
         collectionId: {
           summary: 'test summary',
-          datasetId: 'test dataset id',
+          title: 'test dataset id',
           granuleCount: 42,
           hasFormats: false,
           hasMapImagery: false,
@@ -218,7 +218,7 @@ describe('CollectionResultsBody component', () => {
           collectionsMetadata: {
             collectionId: {
               summary: 'test summary',
-              datasetId: 'test dataset id',
+              title: 'test dataset id',
               granuleCount: 42,
               hasFormats: false,
               hasMapImagery: false,
@@ -259,7 +259,7 @@ describe('CollectionResultsBody component', () => {
           collectionsMetadata: {
             collectionId: {
               summary: 'test summary',
-              datasetId: 'test dataset id',
+              title: 'test dataset id',
               granuleCount: 42,
               hasFormats: false,
               hasMapImagery: false,

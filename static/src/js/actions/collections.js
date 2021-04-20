@@ -154,13 +154,13 @@ export const onProcessCollectionGranules = graphQlCollections => (dispatch, getS
 
     allGranuleMetadata.push(...granuleResults)
 
-    const isCwic = granuleCount === 0 && hasTag({ tags }, 'org.ceos.wgiss.cwic.granules.prod', '')
+    const isOpenSearch = granuleCount === 0 && hasTag({ tags }, 'opensearch.granule.osdd', '')
 
     const curatedGranulesState = {
       allIds: granuleResults.map(granule => granule.conceptId),
       hits: granuleCount,
       excludedGranuleIds: [],
-      isCwic,
+      isOpenSearch,
       isLoaded: true,
       isLoading: false,
       ...calculateGranuleSizeEstimates(granuleCount, granuleResults)
