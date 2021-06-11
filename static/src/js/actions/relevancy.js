@@ -4,6 +4,7 @@ import {
 } from '../util/collections'
 
 import { exactMatch } from '../util/relevancy'
+import { getEarthdataEnvironment } from '../selectors/earthdataEnvironment'
 import { getFocusedCollectionId } from '../selectors/focusedCollection'
 import { getFocusedCollectionMetadata } from '../selectors/collectionMetadata'
 
@@ -22,6 +23,7 @@ export const collectionRelevancyMetrics = () => (dispatch, getState) => {
   // Retrieve data from Redux using selectors
   const focusedCollectionId = getFocusedCollectionId(state)
   const focusedCollectionMetadata = getFocusedCollectionMetadata(state)
+  const earthdataEnvironment = getEarthdataEnvironment(state)
 
   const collectionParams = buildCollectionSearchParams(prepareCollectionParams(state))
 
@@ -36,7 +38,7 @@ export const collectionRelevancyMetrics = () => (dispatch, getState) => {
     exact_match: exactMatch(focusedCollectionMetadata, keyword)
   }
 
-  const requestObject = new LoggerRequest()
+  const requestObject = new LoggerRequest(earthdataEnvironment)
 
   requestObject.logRelevancy({ data }).then(() => {})
 }

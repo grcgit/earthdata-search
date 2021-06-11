@@ -38,7 +38,7 @@ const edlCallback = async (event, context) => {
 
   const { code, state } = event.queryStringParameters
 
-  const [, queryString] = decodeURIComponent(state.split('?'))
+  const [, queryString] = decodeURIComponent(state).split('?')
 
   const params = parse(queryString)
 
