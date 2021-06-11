@@ -7,6 +7,7 @@ const relevancyLogger = async (event) => {
   const { defaultResponseHeaders } = getApplicationConfig()
 
   const { body } = event
+  console.log('relevancyLogger ~ event', event)
   const { params = {} } = JSON.parse(body)
   const { data = {} } = params
 

@@ -27,6 +27,8 @@ const edlCallback = async (event, context) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false
 
+  console.log('edlCallback ~ event', event)
+
   // Retrieve a connection to the database
   const dbConnection = await getDbConnection()
 
@@ -36,7 +38,7 @@ const edlCallback = async (event, context) => {
 
   const { code, state } = event.queryStringParameters
 
-  const [, queryString] = state.split('?')
+  const [, queryString] = decodeURIComponent(state.split('?'))
 
   const params = parse(queryString)
 

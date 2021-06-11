@@ -28,7 +28,7 @@ const edlLogin = async (event) => {
 
   // In the event that the user has the earthdata environment set to the deployed environment
   // the ee param will not exist, we need to ensure its provided on the `state` param for redirect purposes
-  const [path, queryParams] = state.split('?')
+  const [path, queryParams] = decodeURIComponent(state.split('?'))
 
   // Parse the query string into an object
   const paramsObj = parse(queryParams, { parseArrays: false })
