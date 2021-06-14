@@ -27,8 +27,6 @@ const edlCallback = async (event, context) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false
 
-  console.log('edlCallback ~ event', event)
-
   // Retrieve a connection to the database
   const dbConnection = await getDbConnection()
 
@@ -123,7 +121,7 @@ const edlCallback = async (event, context) => {
 
     const queryParams = {
       ee: earthdataEnvironment,
-      state
+      state: decodeURIComponent(state)
     }
 
     const location = `${apiHost}/login?${stringify(queryParams)}`
@@ -137,7 +135,7 @@ const edlCallback = async (event, context) => {
   }
 
   const queryParams = {
-    redirect: state
+    state: decodeURIComponent(state)
   }
 
   if (jwtToken) {

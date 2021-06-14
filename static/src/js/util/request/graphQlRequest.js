@@ -34,6 +34,10 @@ export default class GraphQlRequest extends Request {
     ) {
       // eslint-disable-next-line no-param-reassign
       headers['Earthdata-ENV'] = this.earthdataEnvironment
+
+      // Will instruct AWS load balancers not to base64 encode the body
+      // eslint-disable-next-line no-param-reassign
+      headers['Content-Encoding'] = 'application/json'
     }
 
     if (this.authenticated || this.optionallyAuthenticated) {

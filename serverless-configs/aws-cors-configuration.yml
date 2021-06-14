@@ -3,6 +3,7 @@ headers:
   - Access-Control-Request-Headers
   - Access-Control-Request-Methods
   - Authorization
+  - Content-Encoding
   - Earthdata-ENV
   - Origin
   - User-Agent
