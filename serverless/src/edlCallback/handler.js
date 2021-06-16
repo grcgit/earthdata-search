@@ -33,12 +33,15 @@ const edlCallback = async (event, context) => {
   if (sqs == null) {
     sqs = new AWS.SQS(getSqsConfig())
   }
+  console.log('edlCallback ~ event', event)
 
   const { code, state } = event.queryStringParameters
 
   const [, queryString] = decodeURIComponent(state).split('?')
+  console.log('edlCallback ~ queryString', queryString)
 
   const params = parse(queryString)
+  console.log('params', params)
 
   const { ee: earthdataEnvironment } = params
 
