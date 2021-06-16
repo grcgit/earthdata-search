@@ -8,6 +8,7 @@ import { validateToken } from '../util/authorizer/validateToken'
  * @param {Object} context Methods and properties that provide information about the invocation, function, and execution environment
  */
 const edlAuthorizer = async (event) => {
+  console.log('edlAuthorizer ~ event', event)
   const {
     headers = {},
     methodArn
