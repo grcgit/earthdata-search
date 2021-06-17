@@ -138,7 +138,7 @@ const edlCallback = async (event, context) => {
   }
 
   const queryParams = {
-    state: decodeURIComponent(state)
+    redirect: decodeURIComponent(state)
   }
 
   if (jwtToken) {
