@@ -21,7 +21,7 @@ export const mapDispatchToProps = dispatch => ({
     data => dispatch(metricsRelatedCollection(data))
 })
 
-export const mapStateToProps = state => ({
+export const mapStateToProps = (state) => ({
   collectionMetadata: getFocusedCollectionMetadata(state)
 })
 
