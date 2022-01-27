@@ -137,11 +137,7 @@ describe('retrievals', () => {
           exclude: {},
           line: undefined,
           onlineOnly: undefined,
-          options: {
-            spatial: {
-              or: true
-            }
-          },
+          options: {},
           orbitNumber: undefined,
           pageNum: 1,
           pageSize: 20,
