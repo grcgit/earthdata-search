@@ -61,6 +61,7 @@ export const EDSCModal = ({
     centered
     size={size}
     aria-labelledby={identifier}
+    animation={false}
   >
     <Modal.Header
       className="edsc-modal__header"
