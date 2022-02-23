@@ -1,18 +1,34 @@
-const merge = require('webpack-merge')
+const {
+  mergeWithRules
+} = require('webpack-merge')
+
 const WebpackBar = require('webpackbar')
 
 const StaticCommonConfig = require('./static.webpack.config.common')
 
-const Config = merge.smartStrategy(
-  {
-    devtool: 'replace',
-    'module.rules.use': 'prepend'
+const Config = mergeWithRules({
+  devtool: 'replace',
+  module: {
+    rules: {
+      test: 'match',
+      use: 'prepend'
+    }
   }
-)(StaticCommonConfig, {
+})(StaticCommonConfig, {
   mode: 'development',
   devtool: 'inline-cheap-module-source-map',
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false
+      }
+    },
+    compress: true
   },
   module: {
     rules: [
@@ -24,6 +40,15 @@ const Config = merge.smartStrategy(
             loader: 'style-loader'
           }
         ]
+      },
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'istanbul-instrumenter-loader',
+          options: { esModules: true }
+        },
+        enforce: 'post',
+        exclude: /node_modules|\.spec\.js$/
       }
     ]
   },

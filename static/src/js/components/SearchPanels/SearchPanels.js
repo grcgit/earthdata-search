@@ -144,23 +144,23 @@ class SearchPanels extends PureComponent {
       collectionMetadata,
       collectionQuery,
       collectionsSearch,
-      isExportRunning,
       granuleMetadata,
       granuleQuery,
       granuleSearchResults,
       handoffs,
+      isExportRunning,
       location,
-      match,
       mapProjection,
-      preferences,
-      portal,
+      match,
       onApplyGranuleFilters,
       onChangeQuery,
+      onExport,
       onFocusedCollectionChange,
       onMetricsCollectionSortChange,
       onToggleAboutCSDAModal,
       onToggleAboutCwicModal,
-      onExport
+      portal,
+      preferences
     } = this.props
 
     const isLoggedIn = !(authToken === null || authToken === '')
@@ -195,7 +195,7 @@ class SearchPanels extends PureComponent {
     } = collectionMetadata
 
     // Do not display the international/interagency data message for EOSDIS or CWIC collections
-    const isInternationalInteragency = consortiums.filter(consortium => consortium !== 'EOSDIS' && consortium !== 'GEOSS').length > 0
+    const isInternationalInteragency = consortiums.filter((consortium) => consortium !== 'EOSDIS' && consortium !== 'GEOSS').length > 0
 
     const { title: granuleTitle = '' } = granuleMetadata
 
@@ -226,7 +226,6 @@ class SearchPanels extends PureComponent {
     const granuleResultsHeaderMetaPrimaryText = `Showing ${commafy(allGranuleIds.length)} of ${commafy(
       granuleHits
     )} matching ${pluralize('granule', granuleHits)}`
-
 
     let collectionResultsHeaderMetaPrimaryText = ''
     let collectionResultsPrimaryHeading = ''
@@ -264,7 +263,7 @@ class SearchPanels extends PureComponent {
       }
     ]
 
-    const setGranulesActiveView = view => this.onChangeGranulePanelView(view)
+    const setGranulesActiveView = (view) => this.onChangeGranulePanelView(view)
 
     const granulesViewsArray = [
       {
@@ -315,7 +314,7 @@ class SearchPanels extends PureComponent {
       || (!collectionSearchIsLoaded && !collectionSearchIsLoading)
     )
 
-    const setCollectionsActiveView = view => this.onChangeCollectionsPanelView(view)
+    const setCollectionsActiveView = (view) => this.onChangeCollectionsPanelView(view)
 
     const collectionsViewsArray = [
       {
@@ -713,29 +712,71 @@ class SearchPanels extends PureComponent {
 
 SearchPanels.propTypes = {
   authToken: PropTypes.string.isRequired,
-  collectionMetadata: PropTypes.shape({}).isRequired,
-  collectionQuery: PropTypes.shape({}).isRequired,
-  collectionsSearch: PropTypes.shape({}).isRequired,
-  granuleMetadata: PropTypes.shape({}).isRequired,
-  granuleSearchResults: PropTypes.shape({}).isRequired,
-  granuleQuery: PropTypes.shape({}).isRequired,
+  collectionMetadata: PropTypes.shape({
+    consortiums: PropTypes.arrayOf(PropTypes.string),
+    hasAllMetadata: PropTypes.bool,
+    isCSDA: PropTypes.bool,
+    isOpenSearch: PropTypes.bool,
+    title: PropTypes.string
+  }).isRequired,
+  collectionQuery: PropTypes.shape({
+    pageNum: PropTypes.number,
+    sortKey: PropTypes.arrayOf(
+      PropTypes.string
+    )
+  }).isRequired,
+  collectionsSearch: PropTypes.shape({
+    allIds: PropTypes.arrayOf(PropTypes.string),
+    hits: PropTypes.number,
+    isLoaded: PropTypes.bool,
+    isLoading: PropTypes.bool
+  }).isRequired,
+  granuleMetadata: PropTypes.shape({
+    title: PropTypes.string
+  }).isRequired,
+  granuleQuery: PropTypes.shape({
+    pageNum: PropTypes.number,
+    sortKey: PropTypes.string
+  }).isRequired,
+  granuleSearchResults: PropTypes.shape({
+    allIds: PropTypes.arrayOf(PropTypes.string),
+    hits: PropTypes.number,
+    isLoaded: PropTypes.bool,
+    isLoading: PropTypes.bool
+  }).isRequired,
   handoffs: PropTypes.shape({}).isRequired,
-  isExportRunning: PropTypes.shape({}).isRequired,
-  location: PropTypes.shape({}).isRequired,
-  match: PropTypes.shape({}).isRequired,
+  isExportRunning: PropTypes.shape({
+    csv: PropTypes.bool,
+    json: PropTypes.bool
+  }).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string
+  }).isRequired,
   mapProjection: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    url: PropTypes.string,
+    params: PropTypes.shape({})
+  }).isRequired,
   onApplyGranuleFilters: PropTypes.func.isRequired,
   onChangeQuery: PropTypes.func.isRequired,
+  onExport: PropTypes.func.isRequired,
   onFocusedCollectionChange: PropTypes.func.isRequired,
   onMetricsCollectionSortChange: PropTypes.func.isRequired,
-  onTogglePanels: PropTypes.func.isRequired,
+  onSetActivePanel: PropTypes.func.isRequired,
   onToggleAboutCSDAModal: PropTypes.func.isRequired,
   onToggleAboutCwicModal: PropTypes.func.isRequired,
-  onSetActivePanel: PropTypes.func.isRequired,
-  onExport: PropTypes.func.isRequired,
+  onTogglePanels: PropTypes.func.isRequired,
   panels: PropTypes.shape({}).isRequired,
-  preferences: PropTypes.shape({}).isRequired,
-  portal: PropTypes.shape({}).isRequired
+  portal: PropTypes.shape({
+    org: PropTypes.string,
+    portalId: PropTypes.string,
+    title: PropTypes.string
+  }).isRequired,
+  preferences: PropTypes.shape({
+    collectionListView: PropTypes.node,
+    granuleListView: PropTypes.node,
+    panelState: PropTypes.string
+  }).isRequired
 }
 
 export default SearchPanels

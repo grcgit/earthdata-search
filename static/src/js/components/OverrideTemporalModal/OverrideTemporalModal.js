@@ -135,10 +135,20 @@ class OverrideTemporalModal extends Component {
 
 OverrideTemporalModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  temporalSearch: PropTypes.shape({}).isRequired,
-  timeline: PropTypes.shape({}).isRequired,
   onChangeQuery: PropTypes.func.isRequired,
-  onToggleOverrideTemporalModal: PropTypes.func.isRequired
+  onToggleOverrideTemporalModal: PropTypes.func.isRequired,
+  temporalSearch: PropTypes.shape({
+    endDate: PropTypes.string,
+    startDate: PropTypes.string
+  }).isRequired,
+  timeline: PropTypes.shape({
+    endDate: PropTypes.string,
+    query: PropTypes.shape({
+      end: PropTypes.number,
+      start: PropTypes.number
+    }),
+    startDate: PropTypes.string
+  }).isRequired
 }
 
 export default OverrideTemporalModal

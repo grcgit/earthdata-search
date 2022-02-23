@@ -67,7 +67,7 @@ class SpatialDisplay extends Component {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const {
       boundingBoxSearch,
       circleSearch,
@@ -385,7 +385,7 @@ class SpatialDisplay extends Component {
     return boundingBoxCoordinates
       ? boundingBoxCoordinates
         .match(/[^,]+,[^,]+/g)
-        .map(pointStr => this.transformSingleCoordinate(pointStr))
+        .map((pointStr) => this.transformSingleCoordinate(pointStr))
       : ['', '']
   }
 

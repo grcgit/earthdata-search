@@ -3,7 +3,7 @@ module.exports = {
     [
       '@babel/preset-env', {
         targets: {
-          node: '8.10',
+          node: '14',
           esmodules: true,
           ie: '10'
         }
@@ -11,14 +11,8 @@ module.exports = {
     ],
     '@babel/preset-react'
   ],
-  env: {
-    test_cypress: {
-      plugins: ['istanbul']
-    }
-  },
   sourceType: 'unambiguous',
   plugins: [
-    'react-hot-loader/babel',
     '@babel/plugin-proposal-object-rest-spread',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-transform-runtime',

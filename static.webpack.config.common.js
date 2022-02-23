@@ -1,9 +1,12 @@
 require('@babel/register')
+
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const config = require('./sharedUtils/config')
 const { getPortalConfig } = require('./static/src/js/util/portals')
@@ -24,7 +27,6 @@ const StaticCommonConfig = {
     client: [
       'core-js/stable',
       'regenerator-runtime/runtime',
-      'react-hot-loader/patch',
       path.resolve(__dirname, './static/src/index.js')
     ]
   },
@@ -32,19 +34,24 @@ const StaticCommonConfig = {
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'static/dist'),
-    publicPath: '/'
+    publicPath: '/',
+    assetModuleFilename: 'assets/[path][name].[hash].[ext]'
   },
   resolve: {
     alias: {
-      'react-dom': '@hot-loader/react-dom',
       Fonts: path.join(__dirname, 'static/src/assets/fonts'),
-      Images: path.join(__dirname, 'static/src/assets/images')
+      Images: path.join(__dirname, 'static/src/assets/images'),
+      process: 'process/browser'
+    },
+    fallback: {
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify')
     }
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: [
           /node_modules\/(?!(map-obj|snakecase-keys|strict-uri-encode|qs|fast-xml-parser)\/).*/
         ],
@@ -52,10 +59,9 @@ const StaticCommonConfig = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env', '@babel/react']
+              presets: ['@babel/preset-env']
             }
-          },
-          { loader: 'eslint-loader' }
+          }
         ]
       },
       {
@@ -65,8 +71,7 @@ const StaticCommonConfig = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-              importLoaders: 1
+              sourceMap: true
             }
           },
           {
@@ -78,7 +83,12 @@ const StaticCommonConfig = {
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: true
+              sourceMap: true,
+              postcssOptions: {
+                plugins: [
+                  'autoprefixer'
+                ]
+              }
             }
           },
           {
@@ -88,22 +98,26 @@ const StaticCommonConfig = {
             }
           },
           {
-            loader: 'sass-resources-loader',
+            loader: 'style-resources-loader',
             options: {
-              // eslint-disable-next-line
-              resources: require(path.join(process.cwd(), "/static/src/css/globalUtils.js")),
+              patterns: [
+                path.resolve(__dirname, 'static/src/css/utils/utils.scss'),
+                path.resolve(__dirname, 'static/src/css/vendor/bootstrap/_vars.scss')
+              ]
             }
           }
         ]
       },
+      // Fonts and SVGs
       {
-        test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: 'assets/[path][name].[hash].[ext]'
-          }
-        }
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: 'asset/inline'
+      },
+
+      // Images
+      {
+        test: /\.(?:ico|gif|png|jpe?g)$/i,
+        type: 'asset/resource'
       },
       {
         test: /portals.*styles\.s?css$/i,
@@ -132,6 +146,14 @@ const StaticCommonConfig = {
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin(),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      DEBUG: false
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
+    }),
     new HtmlWebPackPlugin({
       template: path.join(__dirname, './static/src/partials/wrapper.html')
     }),
@@ -160,7 +182,6 @@ const StaticCommonConfig = {
           showTophat: ui.showTophat
         }
       }]),
-    new webpack.HashedModuleIdsPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         { from: './static/src/public', to: './' }
@@ -170,9 +191,13 @@ const StaticCommonConfig = {
       jQuery: 'jquery',
       $: 'jquery'
     }),
+    new ESLintPlugin(),
     // Prevent importing of all moment locales. Moment includes and uses en-us by default.
     // https://medium.com/@michalozogan/how-to-split-moment-js-locales-to-chunks-with-webpack-de9e25caccea
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/
+    })
   ]
 }
 

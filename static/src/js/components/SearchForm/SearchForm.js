@@ -61,7 +61,7 @@ class SearchForm extends Component {
     window.addEventListener('keyup', this.onWindowKeyUp)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { keywordSearch } = this.props
 
     if (keywordSearch !== nextProps.keywordSearch) {
@@ -208,6 +208,7 @@ class SearchForm extends Component {
       query
     } = opts
     return (
+      // eslint-disable-next-line react/jsx-props-no-spreading
       <div {...containerProps} className="search-form__suggestions-container">
         {
           query && query.length > 2 && (
@@ -403,17 +404,25 @@ class SearchForm extends Component {
 }
 
 SearchForm.propTypes = {
-  advancedSearch: PropTypes.shape({}).isRequired,
+  advancedSearch: PropTypes.shape({
+    regionSearch: PropTypes.shape({})
+  }).isRequired,
+  autocomplete: PropTypes.shape({
+    isLoaded: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    suggestions: PropTypes.arrayOf(
+      PropTypes.shape({})
+    )
+  }).isRequired,
   keywordSearch: PropTypes.string.isRequired,
-  autocomplete: PropTypes.shape({}).isRequired,
-  onChangeQuery: PropTypes.func.isRequired,
-  onChangeFocusedCollection: PropTypes.func.isRequired,
-  onClearFilters: PropTypes.func.isRequired,
-  onToggleAdvancedSearchModal: PropTypes.func.isRequired,
   onCancelAutocomplete: PropTypes.func.isRequired,
+  onChangeFocusedCollection: PropTypes.func.isRequired,
+  onChangeQuery: PropTypes.func.isRequired,
   onClearAutocompleteSuggestions: PropTypes.func.isRequired,
+  onClearFilters: PropTypes.func.isRequired,
   onFetchAutocomplete: PropTypes.func.isRequired,
   onSelectAutocompleteSuggestion: PropTypes.func.isRequired,
+  onToggleAdvancedSearchModal: PropTypes.func.isRequired,
   showFilterStackToggle: PropTypes.bool.isRequired
 }
 

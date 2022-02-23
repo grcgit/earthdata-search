@@ -2,7 +2,7 @@ service: earthdata-search
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   versionFunctions: false
   stage: ${opt:stage, 'dev'}
   region: us-east-1
@@ -42,6 +42,8 @@ provider:
     geocodingService: ${self:custom.variables.geocodingService}
     geocodingIncludePolygons: ${self:custom.variables.geocodingIncludePolygons}
 
+    NODE_OPTIONS: '--enable-source-maps'
+
   vpc:
     securityGroupIds:
       - Fn::ImportValue: ${self:provider.stage}-LambdaSecurityGroup
@@ -64,11 +66,11 @@ provider:
 
 plugins:
   - serverless-finch
-  - serverless-offline
   - serverless-webpack
   - serverless-step-functions
   - serverless-plugin-split-stacks
   - serverless-plugin-log-subscription
+  - serverless-offline
 
 #
 # Lambda Functions

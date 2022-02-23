@@ -29,6 +29,7 @@ export const EDSCIcon = ({
       <i
         className={iconClassNames}
         title={title}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       />
     )

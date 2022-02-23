@@ -57,12 +57,12 @@ function setup(overrideProps) {
         thumbnail: 'http://some.test.com/thumbnail/url.jpg',
         timeEnd: '2019-01-15T00:00:00.000Z',
         timeStart: '2019-01-14T00:00:00.000Z',
-        versionId: 2
+        versionId: '2'
       }
     },
     collectionsSearch: {
       allIds: ['collectionId'],
-      hits: '181',
+      hits: 181,
       isLoaded: true,
       isLoading: false,
       loadTime: 1150,
@@ -207,7 +207,7 @@ describe('CollectionResultsBody component', () => {
           thumbnail: 'http://some.test.com/thumbnail/url.jpg',
           timeEnd: '2019-01-15T00:00:00.000Z',
           timeStart: '2019-01-14T00:00:00.000Z',
-          versionId: 2
+          versionId: '2'
         }
       },
       collectionsSearch: {
@@ -254,7 +254,7 @@ describe('CollectionResultsBody component', () => {
               thumbnail: 'http://some.test.com/thumbnail/url.jpg',
               timeEnd: '2019-01-15T00:00:00.000Z',
               timeStart: '2019-01-14T00:00:00.000Z',
-              versionId: 2
+              versionId: '2'
             }
           },
           collectionsSearch: {
@@ -295,12 +295,12 @@ describe('CollectionResultsBody component', () => {
               thumbnail: 'http://some.test.com/thumbnail/url.jpg',
               timeEnd: '2019-01-15T00:00:00.000Z',
               timeStart: '2019-01-14T00:00:00.000Z',
-              versionId: 2
+              versionId: '2'
             }
           },
           collectionsSearch: {
             allIds: ['collectionId'],
-            hits: '2',
+            hits: 2,
             isLoaded: true,
             isLoading: false,
             loadTime: 1150,

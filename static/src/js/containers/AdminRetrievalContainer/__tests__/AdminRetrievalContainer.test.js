@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
@@ -13,7 +12,7 @@ function setup() {
   const props = {
     match: {
       params: {
-        id: 1
+        id: '1'
       }
     },
     onFetchAdminRetrieval: jest.fn(),

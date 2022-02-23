@@ -48,7 +48,8 @@ export const SubscriptionsBody = ({
         <div className="row subscriptions-body__row subscriptions-body__row--intro">
           <div className="col col-12">
             <p className="subscriptions-body__intro-text">
-              {'Subscribe to be notified by email when new data matching your search query becomes available for this collection.'}
+              { /* eslint-disable-next-line max-len */}
+              Subscribe to be notified by email when new data matching your search query becomes available for this collection.
             </p>
             <div className="subscriptions-body__query">
               <div className="subscriptions-body__query-primary">

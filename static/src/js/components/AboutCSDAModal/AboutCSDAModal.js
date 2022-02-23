@@ -28,7 +28,8 @@ export class AboutCSDAModal extends Component {
 
         <div>
           <p>
-            {'Here are some places where you can find more information about the Commercial Smallsat Data Acquisition (CSDA) Program:'}
+            { /* eslint-disable-next-line max-len */}
+            Here are some places where you can find more information about the Commercial Smallsat Data Acquisition (CSDA) Program:
           </p>
           <ul>
             <li>
@@ -54,10 +55,12 @@ export class AboutCSDAModal extends Component {
         <div>
           <h4>How do I access this data?</h4>
           <p>
-            {'Users that meet the requirements set forth by NASA for access to Commercial Smallsat Data Acquisition (CSDA) Program data can request access to the program'}
+            { /* eslint-disable-next-line max-len */}
+            Users that meet the requirements set forth by NASA for access to Commercial Smallsat Data Acquisition (CSDA) Program data can request access to the program
             {' '}
             <a className="link link--external" href="https://csdap.earthdata.nasa.gov/signup/" target="_blank" rel="noopener noreferrer">here</a>
-            {'. Once access has been approved and an account has been created, users can use their account credentials when downloading data from Earthdata Search.'}
+            { /* eslint-disable-next-line max-len */}
+            . Once access has been approved and an account has been created, users can use their account credentials when downloading data from Earthdata Search.
           </p>
         </div>
       </>

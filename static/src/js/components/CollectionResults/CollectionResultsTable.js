@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import { commafy } from '../../util/commafy'
 
+import { collectionMetadataPropType } from '../../util/propTypes/collectionMetadata'
+
 import Cell from '../EDSCTable/EDSCTableCell'
 import CollectionResultsTableHeaderCell from './CollectionResultsTableHeaderCell'
 import EDSCTable from '../EDSCTable/EDSCTable'
@@ -80,12 +82,13 @@ export const CollectionResultsTable = ({
     },
     {
       Header: 'Granules',
-      // eslint-disable-next-line react/display-name,react/prop-types
+      /* eslint-disable react/display-name,react/prop-types */
       Cell: ({ cell }) => (
         <div className="edsc-table-cell" title={commafy(cell.value)}>
           {commafy(cell.value)}
         </div>
       ),
+      /* eslint-enable */
       accessor: 'granuleCount',
       width: '100',
       customProps: {
@@ -139,7 +142,9 @@ CollectionResultsTable.defaultProps = {
 }
 
 CollectionResultsTable.propTypes = {
-  collectionsMetadata: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  collectionsMetadata: PropTypes.arrayOf(
+    collectionMetadataPropType
+  ).isRequired,
   isItemLoaded: PropTypes.func.isRequired,
   itemCount: PropTypes.number.isRequired,
   loadMoreItems: PropTypes.func.isRequired,

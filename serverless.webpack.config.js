@@ -1,6 +1,5 @@
 const path = require('path')
 const slsw = require('serverless-webpack')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const CopyPlugin = require('copy-webpack-plugin')
 
@@ -17,8 +16,10 @@ const ConditionalPlugin = (condition, plugin) => ({
       fileName = name.pop()
     }
 
-    const config = Object.assign({ webpack: {} },
-      slsw.lib.serverless.service.getFunction(fileName))
+    const config = {
+      webpack: {},
+      ...slsw.lib.serverless.service.getFunction(fileName)
+    }
 
     if (condition(config)) {
       plugin.apply(compiler)
@@ -34,8 +35,11 @@ const ServerlessWebpackConfig = {
   output: {
     path: path.resolve(__dirname, 'serverless/dist'),
     filename: '[name].js',
-    libraryTarget: 'commonjs2',
-    library: '[name]'
+    libraryTarget: 'commonjs',
+    clean: true // Replaces CleanWebpackPlugin in Webpack 5
+  },
+  externalsPresets: {
+    node: true
   },
   externals: [
     nodeExternals()
@@ -46,22 +50,22 @@ const ServerlessWebpackConfig = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
-          { loader: 'babel-loader' },
-          { loader: 'eslint-loader' }
+          { loader: 'babel-loader' }
         ]
       }
     ]
   },
   plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, 'serverless/dist')]),
+    // new CleanWebpackPlugin([path.resolve(__dirname, 'serverless/dist')]),
     ConditionalPlugin(
-      (config => config.webpack.includeMigrations),
+      ((config) => config.webpack.includeMigrations),
       new CopyPlugin({
         patterns: [
           { from: 'migrations', to: 'migrations' }
         ]
       })
     )
+    // new ESLintPlugin()
   ]
 }
 

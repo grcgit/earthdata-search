@@ -334,7 +334,6 @@ export class Panels extends PureComponent {
       // If the panel would minimize at the current scroll position, set the state accordingly.
       const newWillMinimize = newWidth < (minWidth - this.minimizeThreshold)
 
-
       if (willMinimize !== newWillMinimize) {
         this.setState({
           willMinimize: newWillMinimize
@@ -584,6 +583,7 @@ export class Panels extends PureComponent {
             <>
               <div
                 className="panels__handle"
+                aria-label={`${handleTooltipState} panel (${keyboardShortcuts.togglePanel})`}
                 role="button"
                 tabIndex="0"
                 ref={(node) => {

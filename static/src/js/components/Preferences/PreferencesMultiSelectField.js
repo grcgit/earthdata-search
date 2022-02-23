@@ -91,10 +91,16 @@ class PreferencesMultiSelectField extends Component {
 }
 
 PreferencesMultiSelectField.propTypes = {
-  schema: PropTypes.shape({}).isRequired,
-  name: PropTypes.string.isRequired,
   formData: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onChange: PropTypes.func.isRequired
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  schema: PropTypes.shape({
+    items: PropTypes.shape({
+      enum: PropTypes.arrayOf(PropTypes.string),
+      enumNames: PropTypes.arrayOf(PropTypes.string),
+      description: PropTypes.string
+    })
+  }).isRequired
 }
 
 export default PreferencesMultiSelectField

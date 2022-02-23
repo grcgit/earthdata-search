@@ -62,7 +62,7 @@ function setup(options = {
     granuleQuery: {},
     granuleSearchResults: {
       allIds: ['one', 'two'],
-      hits: '2',
+      hits: 2,
       isLoaded: true,
       isLoading: false,
       loadTime: 1123,
@@ -327,7 +327,7 @@ describe('GranuleResultsBody component', () => {
           },
           granuleSearchResults: {
             allIds: ['one'],
-            hits: '2',
+            hits: 2,
             isLoading: false,
             isLoaded: true,
             loadTime: 1150,

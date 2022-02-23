@@ -45,10 +45,8 @@ const TemporalSelectionDropdownMenu = ({
     <Dropdown.Menu
       className="temporal-selection-dropdown-menu dropdown-menu-dark"
       popperConfig={{
-        modifiers: {
-          preventOverflow: {
-            boundariesElement: 'window'
-          }
+        preventOverflow: {
+          boundariesElement: 'window'
         }
       }}
     >
@@ -59,8 +57,8 @@ const TemporalSelectionDropdownMenu = ({
         onRecurringToggle={onRecurringToggle}
         onChangeRecurring={onChangeRecurring}
         onChangeQuery={onChangeQuery}
-        onSubmitStart={value => setStartDate(value)}
-        onSubmitEnd={value => setEndDate(value)}
+        onSubmitStart={(value) => setStartDate(value)}
+        onSubmitEnd={(value) => setEndDate(value)}
         onValid={onValid}
         onInvalid={onInvalid}
       />

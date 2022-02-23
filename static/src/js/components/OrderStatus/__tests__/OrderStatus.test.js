@@ -46,17 +46,17 @@ describe('OrderStatus component', () => {
   test('calls onFetchRetrieval when mounted', () => {
     const { props } = setup()
     expect(props.onFetchRetrieval).toHaveBeenCalledTimes(1)
-    expect(props.onFetchRetrieval).toHaveBeenCalledWith(7, 'testToken')
+    expect(props.onFetchRetrieval).toHaveBeenCalledWith('7', 'testToken')
   })
 
   test('calls onFetchRetrieval when new props are received', () => {
     const { enzymeWrapper, props } = setup()
-    enzymeWrapper.find(OrderStatus).instance().componentWillReceiveProps({
+    enzymeWrapper.find(OrderStatus).instance().UNSAFE_componentWillReceiveProps({
       ...retrievalStatusProps,
       ...retrievalStatusPropsTwo
     })
     expect(props.onFetchRetrieval).toHaveBeenCalledTimes(2)
-    expect(props.onFetchRetrieval).toHaveBeenCalledWith(7, 'testToken')
+    expect(props.onFetchRetrieval).toHaveBeenCalledWith('7', 'testToken')
   })
 
   describe('introduction', () => {
@@ -90,7 +90,8 @@ describe('OrderStatus component', () => {
 
     test('status link has correct href', () => {
       const { enzymeWrapper } = setup()
-      expect(enzymeWrapper.find(Well.Introduction).find(PortalLinkContainer).at(0).props().to).toEqual({
+      expect(enzymeWrapper.find(Well.Introduction)
+        .find(PortalLinkContainer).at(0).props().to).toEqual({
         pathname: '/downloads',
         search: ''
       })
@@ -103,7 +104,8 @@ describe('OrderStatus component', () => {
       }))
 
       const { enzymeWrapper } = setup()
-      expect(enzymeWrapper.find(Well.Introduction).find(PortalLinkContainer).at(0).props().to).toEqual({
+      expect(enzymeWrapper.find(Well.Introduction)
+        .find(PortalLinkContainer).at(0).props().to).toEqual({
         pathname: '/downloads',
         search: '?ee=prod'
       })

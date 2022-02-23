@@ -44,7 +44,7 @@ export const CustomToggle = React.forwardRef(({
   )
 
   // Default the event handlers to the onClick
-  let buttonEventHandlers = { onClick: e => handleClick(e) }
+  let buttonEventHandlers = { onClick: (e) => handleClick(e) }
 
   // If openOnHover is set and the handler functions are defined, set the event handlers
   if (
@@ -53,8 +53,8 @@ export const CustomToggle = React.forwardRef(({
     && typeof handleClose === 'function'
   ) {
     buttonEventHandlers = {
-      onMouseIn: e => handleOpen(e),
-      onMouseOut: e => handleClose(e)
+      onMouseIn: (e) => handleOpen(e),
+      onMouseOut: (e) => handleClose(e)
     }
   }
 
@@ -64,8 +64,10 @@ export const CustomToggle = React.forwardRef(({
       type="button"
       ref={ref}
       title={title}
+      /* eslint-disable react/jsx-props-no-spreading */
       {...buttonEventHandlers}
       {...props}
+      /* eslint-enable */
     >
       {icon && (
         <EDSCIcon

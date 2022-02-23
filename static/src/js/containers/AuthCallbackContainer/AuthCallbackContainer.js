@@ -5,7 +5,7 @@ import { parse } from 'qs'
 
 import { locationPropType } from '../../util/propTypes/location'
 
-export const mapStateToProps = state => ({
+export const mapStateToProps = (state) => ({
   location: state.router.location
 })
 
@@ -16,7 +16,7 @@ export const mapStateToProps = state => ({
  * in.
  */
 export class AuthCallbackContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // Pull the jwt and redirect params out of the URL
     const { location } = this.props
     const { search } = location

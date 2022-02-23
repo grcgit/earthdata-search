@@ -10,10 +10,13 @@ import { ProgressRing } from '../../ProgressRing/ProgressRing'
 
 const shouldRefreshCopy = OrderStatusItem.prototype.shouldRefresh
 
-jest.useFakeTimers()
-
 beforeEach(() => {
   jest.clearAllMocks()
+  jest.useFakeTimers('legacy')
+})
+
+afterEach(() => {
+  jest.useRealTimers()
 })
 
 Enzyme.configure({ adapter: new Adapter() })
@@ -34,8 +37,8 @@ function setup(overrideProps, mockRefresh) {
     key: 'TEST_COLLECTION_111',
     match: {
       params: {
-        retrieval_id: 2,
-        id: 1
+        retrieval_id: '2',
+        id: '1'
       },
       path: '/downloads/2/collections/1'
     },
@@ -90,12 +93,16 @@ describe('OrderStatusItem', () => {
         },
         true)
 
+        jest.spyOn(global, 'setInterval')
+
         const { intervalId } = enzymeWrapper.instance()
+
         expect(intervalId).toBeDefined()
         expect(setInterval).toHaveBeenCalledTimes(1)
         expect(props.onFetchRetrievalCollection).toHaveBeenCalledTimes(1)
         expect(props.onFetchRetrievalCollection).toHaveBeenCalledWith(1)
         expect(shouldRefreshMock).toHaveBeenCalledTimes(0)
+
         shouldRefreshMock.mockRestore()
       })
 
@@ -104,7 +111,7 @@ describe('OrderStatusItem', () => {
           const { props } = setup({
             type: 'echo_orders',
             collection: {
-              id: 'TEST_COLLECTION_111',
+              id: 111,
               collection_metadata: {
                 id: 'TEST_COLLECTION_111',
                 dataset_id: 'Test Dataset ID'
@@ -134,7 +141,7 @@ describe('OrderStatusItem', () => {
           const { props } = setup({
             type: 'echo_orders',
             collection: {
-              id: 'TEST_COLLECTION_111',
+              id: 111,
               collection_metadata: {
                 id: 'TEST_COLLECTION_111',
                 dataset_id: 'Test Dataset ID'
@@ -164,7 +171,7 @@ describe('OrderStatusItem', () => {
           const { props } = setup({
             type: 'echo_orders',
             collection: {
-              id: 'TEST_COLLECTION_111',
+              id: 111,
               collection_metadata: {
                 id: 'TEST_COLLECTION_111',
                 dataset_id: 'Test Dataset ID'
@@ -194,7 +201,7 @@ describe('OrderStatusItem', () => {
           const { props } = setup({
             type: 'harmony',
             collection: {
-              id: 'TEST_COLLECTION_111',
+              id: 111,
               collection_metadata: {
                 id: 'TEST_COLLECTION_111',
                 dataset_id: 'Test Dataset ID'

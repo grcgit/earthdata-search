@@ -10,7 +10,7 @@ Enzyme.configure({ adapter: new Adapter() })
 
 function setup() {
   const props = {
-    facets: {},
+    facetsById: {},
     featureFacets: {},
     portal: {},
     onChangeCmrFacet: jest.fn(),
@@ -65,13 +65,15 @@ describe('mapStateToProps', () => {
         feature: {}
       },
       searchResults: {
-        facets: {}
+        facets: {
+          byId: {}
+        }
       },
       portal: {}
     }
 
     const expectedState = {
-      facets: {},
+      facetsById: {},
       featureFacets: {},
       portal: {}
     }
@@ -85,7 +87,7 @@ describe('FacetsContainer component', () => {
     const { enzymeWrapper } = setup()
 
     expect(enzymeWrapper.find(Facets).length).toBe(1)
-    expect(enzymeWrapper.find(Facets).props().facets).toEqual({})
+    expect(enzymeWrapper.find(Facets).props().facetsById).toEqual({})
     expect(enzymeWrapper.find(Facets).props().featureFacets).toEqual({})
     expect(enzymeWrapper.find(Facets).props().portal).toEqual({})
     expect(typeof enzymeWrapper.find(Facets).props().onChangeCmrFacet).toEqual('function')

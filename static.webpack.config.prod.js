@@ -1,37 +1,54 @@
 const path = require('path')
 const webpack = require('webpack')
-const merge = require('webpack-merge')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const TerserJsPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const CSSNano = require('cssnano')
+
+const {
+  mergeWithRules
+} = require('webpack-merge')
+
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
+const TerserJsPlugin = require('terser-webpack-plugin')
+
+const {
+  BundleAnalyzerPlugin
+} = require('webpack-bundle-analyzer')
 const CompressionPlugin = require('compression-webpack-plugin')
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 
 const StaticCommonConfig = require('./static.webpack.config.common')
 
-const debug = false
-
 const defaultPlugins = [
-  new webpack.HashedModuleIdsPlugin(),
-  new CleanWebpackPlugin([path.resolve(__dirname, 'static/dist')]),
+  // This plugin will cause hashes to be based on the relative path of the module, generating a four character string as the module id.
+  new webpack.ids.HashedModuleIdsPlugin({}),
+
+  // Creates a CSS file per JS file which contains CSS. It supports On-Demand-Loading of CSS and SourceMaps.
   new MiniCssExtractPlugin({
     filename: '[name].[contenthash].min.css',
     chunkFilename: '[id].[contenthash].min.css'
   })
 ]
 
+const debug = false
+
 const debugPlugins = [
-  new DuplicatePackageCheckerPlugin(),
+  // Visualize size of webpack output files with an interactive zoomable treemap.
   new BundleAnalyzerPlugin(),
-  new CompressionPlugin()
+
+  // Prepare compressed versions of assets to serve them with Content-Encoding.
+  new CompressionPlugin(),
+
+  // Provides warning when your bundle contains multiple versions of the same package.
+  new DuplicatePackageCheckerPlugin()
 ]
 
-const Config = merge.smartStrategy({
+const Config = mergeWithRules({
   devtool: 'replace',
-  'module.rules.use': 'prepend'
+  module: {
+    rules: {
+      test: 'match',
+      use: 'prepend'
+    }
+  }
 })(StaticCommonConfig, {
   mode: 'production',
   devtool: 'cheap-module-source-map',
@@ -39,35 +56,33 @@ const Config = merge.smartStrategy({
     filename: '[name].[contenthash].bundle.js',
     chunkFilename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, 'static/dist'),
-    publicPath: '/'
+    publicPath: '/',
+    clean: true
   },
   optimization: {
     nodeEnv: 'production',
-    concatenateModules: true,
     minimize: true,
     minimizer: [
+      // Use terser to minify/minimize your JavaScript
       new TerserJsPlugin({
         cache: true,
         parallel: true,
         sourceMap: true,
         include: /\.js$/
       }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessor: CSSNano,
-        cssProcessorPluginOptions: {
-          preset: ['default', { discardComments: { removeAll: true } }]
-        }
-      })
+      // Use cssnano to optimize and minify your CSS
+      new CssMinimizerPlugin()
     ],
+    moduleIds: 'deterministic',
     runtimeChunk: true,
     splitChunks: {
+      chunks: 'all',
       maxInitialRequests: Infinity,
-      maxSize: 300000,
-      minSize: 150000,
+      maxSize: 200000,
       cacheGroups: {
-        vendor: {
+        defaultVendors: {
           name(module) {
-            // get the name. E.g. node_modules/packageName/not/this/part.js
+            // Get the name. E.g. node_modules/packageName/not/this/part.js
             // or node_modules/packageName
             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
 
@@ -86,12 +101,7 @@ const Config = merge.smartStrategy({
         test: /\.(css|scss)$/,
         exclude: /portals/i,
         use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: MiniCssExtractPlugin.loader
-          }
+          MiniCssExtractPlugin.loader
         ]
       }
     ]
