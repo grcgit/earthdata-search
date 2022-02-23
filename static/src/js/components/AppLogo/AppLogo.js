@@ -59,7 +59,7 @@ const AppLogo = ({
   return (
     <nav className="app-logo">
       <h1 className="app-logo__site-logo">
-        <a
+        {/* <a
           className="app-logo__site-meatball"
           href="/"
           title="Earthdata Search Home"
@@ -67,7 +67,7 @@ const AppLogo = ({
           <span className="visually-hidden">
             Earthdata Search Home
           </span>
-        </a>
+        </a> */}
         {portalLogo()}
         <a
           className="app-logo__site-name"

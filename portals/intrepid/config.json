@@ -1,0 +1,34 @@
+{
+  "features": {
+    "advancedSearch": false,
+    "authentication": false,
+    "featureFacets": {
+      "showAvailableFromAwsCloud": false,
+      "showCustomizable": false,
+      "showMapImagery": false,
+      "showNearRealTime": true
+    }
+  },
+  "footer": {
+    "displayVersion": false,
+    "attributionText": "",
+    "primaryLinks": [],
+    "secondaryLinks": []
+  },
+  "hasScripts": false,
+  "hasStyles": true,
+  "logo": {
+    "id": "intrepid-logo",
+    "link": "https://www.intrepid-geophysics.com/",
+    "title": "intrepid-home"
+  },
+  "org": "Intrepid Geophysics",
+  "pageTitle": "",
+  "query": {},
+  "title": "Jetstream",
+  "ui": {
+    "showOnlyGranulesCheckbox": false,
+    "showNonEosdisCheckbox": false,
+    "showTophat": false
+  }
+}
