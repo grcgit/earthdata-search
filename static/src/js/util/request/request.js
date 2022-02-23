@@ -85,6 +85,8 @@ export default class Request {
       headers.Authorization = `Bearer ${this.getAuthToken()}`
     }
 
+    headers['Echo-Token'] = 'mock-echo-system-token'
+
     if (data) {
       // POST requests to Lambda use a JSON string
       if (this.authenticated || this.lambda) {

@@ -10,7 +10,7 @@
 ### NVM NPM NODE
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh
-nvm install 12.14.1
+nvm install 12.16.3
 npm install -g npm@latest
 npm install -g serverless@latest
 npm install
