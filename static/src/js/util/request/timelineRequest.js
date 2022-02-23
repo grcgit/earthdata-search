@@ -16,7 +16,7 @@ export default class TimelineRequest extends CmrRequest {
     } else {
       super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
 
-      this.searchPath = 'search/granules/timeline'
+      this.searchPath = 'granules/timeline'
     }
   }
 

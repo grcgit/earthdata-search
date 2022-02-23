@@ -21,7 +21,7 @@ export default class GranuleRequest extends CmrRequest {
     } else {
       super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
 
-      this.searchPath = 'search/granules.json'
+      this.searchPath = 'granules.json'
     }
   }
 

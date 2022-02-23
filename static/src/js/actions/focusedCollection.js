@@ -37,8 +37,7 @@ export const getFocusedCollection = () => async (dispatch, getState) => {
   const state = getState()
 
   const {
-    authToken,
-    router
+    authToken
   } = state
 
   // Send the relevency metric event
@@ -261,16 +260,17 @@ export const getFocusedCollection = () => async (dispatch, getState) => {
           dispatch(actions.fetchSotoLayers())
         }
       } else {
-        // If no data was returned, clear the focused collection and redirect the user back to the search page
-        dispatch(actions.updateFocusedCollection(''))
+        dispatch(actions.getSearchGranules())
+        // // If no data was returned, clear the focused collection and redirect the user back to the search page
+        // dispatch(actions.updateFocusedCollection(''))
 
-        const { location } = router
-        const { search } = location
+        // const { location } = router
+        // const { search } = location
 
-        dispatch(actions.changeUrl({
-          pathname: `${portalPathFromState(getState())}/search`,
-          search
-        }))
+        // dispatch(actions.changeUrl({
+        //   pathname: `${portalPathFromState(getState())}/search`,
+        //   search
+        // }))
       }
     })
     .catch((error) => {
