@@ -8,11 +8,12 @@
 
 ## WSL Distro Prerequisites
 ### NVM NPM NODE
-
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh
 nvm install 12.16.3
-npm install -g npm@latest
+npm install -g npm@8.4.0 
+-or npm install -g npm@latest
 npm install -g serverless@latest
+-from repo root
 npm install
 
 ## Running frontend
