@@ -26,7 +26,7 @@ export default class CollectionRequest extends CmrRequest {
       super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
 
       // We do not define an extension here. It will be added in the search method.
-      this.searchPath = 'search/collections.json'
+      this.searchPath = 'collections.json'
     }
   }
 
