@@ -46,7 +46,7 @@ export default class CollectionRequest extends CmrRequest {
       'granule_data_format',
       'granule_data_format_h',
       'has_granules',
-      'has_granules_or_cwic',
+      //'has_granules_or_cwic', // need to sort this out
       'horizontal_data_resolution_range',
       'include_facets',
       'include_granule_counts',
@@ -111,7 +111,7 @@ export default class CollectionRequest extends CmrRequest {
       // eslint-disable-next-line no-param-reassign
       delete params.twoDCoordinateSystem.coordinates
     }
-
+    //has_granules_or_cwic
     return this.post(this.searchPath, params)
   }
 
@@ -162,7 +162,7 @@ export default class CollectionRequest extends CmrRequest {
 
       if (collection.id) {
         transformedCollection.thumbnail = collection.browse_flag
-          ? `${getEarthdataConfig(this.earthdataEnvironment).cmrHost}/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
+          ? `http://localhost:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
           : unavailableImg
       }
 

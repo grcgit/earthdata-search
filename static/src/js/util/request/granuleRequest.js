@@ -93,7 +93,7 @@ export default class GranuleRequest extends CmrRequest {
 
       if (granule.id) {
         // eslint-disable-next-line
-        updatedGranule.thumbnail = `${getEarthdataConfig(this.earthdataEnvironment).cmrHost}/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
+        updatedGranule.thumbnail = `http://localhost:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
       }
 
       if (granule.links && granule.links.length > 0) {

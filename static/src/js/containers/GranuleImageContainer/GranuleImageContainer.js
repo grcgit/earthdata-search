@@ -25,7 +25,7 @@ export const GranuleImageContainer = ({
   let imageSrc = ''
 
   if (browseFlag) {
-    imageSrc = `${getEarthdataConfig(earthdataEnvironment).cmrHost}/browse-scaler/browse_images/granules/${focusedGranuleId}?h=512&w=512`
+    imageSrc = `http://localhost:8081/browse-scaler/browse_images/granules/${focusedGranuleId}?h=512&w=512`
   }
 
   return (

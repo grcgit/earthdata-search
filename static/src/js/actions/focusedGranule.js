@@ -29,8 +29,7 @@ export const getFocusedGranule = () => (dispatch, getState) => {
   const state = getState()
 
   const {
-    authToken,
-    router
+    authToken
   } = state
 
   // Retrieve data from Redux using selectors
@@ -141,15 +140,15 @@ export const getFocusedGranule = () => (dispatch, getState) => {
         dispatch(actions.updateGranuleMetadata(payload))
       } else {
         // If no data was returned, clear the focused granule and redirect the user back to the search page
-        dispatch(actions.updateFocusedGranule(''))
+        // dispatch(actions.updateFocusedGranule(''))
 
-        const { location } = router
-        const { search } = location
+        // const { location } = router
+        // const { search } = location
 
-        dispatch(actions.changeUrl({
-          pathname: `${portalPathFromState(getState())}/search`,
-          search
-        }))
+        // dispatch(actions.changeUrl({
+        //   pathname: `${portalPathFromState(getState())}/search`,
+        //   search
+        // }))
       }
     })
     .catch((error) => {
