@@ -33,10 +33,12 @@ import ConnectedSpatialSelectionContainer from '../SpatialSelectionContainer/Spa
 import GranuleGridLayer from '../../components/Map/GranuleGridLayer'
 import GranuleImageContainer from '../GranuleImageContainer/GranuleImageContainer'
 import LayerBuilder from '../../components/Map/LayerBuilder'
+import LayerBuilderOpen from '../../components/Map/LayerBuilderOpen'
 import MouseEventsLayer from '../../components/Map/MouseEventsLayer'
 import ProjectionSwitcher from '../../components/Map/ProjectionSwitcher'
 import ShapefileLayer from '../../components/Map/ShapefileLayer'
 import ZoomHome from '../../components/Map/ZoomHome'
+import GranulePlotter from '../../components/Map/GranulePlotter'
 
 import '../../util/map/sphericalPolygon'
 
@@ -292,7 +294,7 @@ export class MapContainer extends Component {
 
     const center = [latitude, longitude]
 
-    const maxZoom = projection === projections.geographic ? 7 : 4
+    const maxZoom = projection === projections.geographic ? 7 : 4 //zoomlevel
 
     let nonExcludedGranules
     if (focusedCollectionId && granuleSearchResults) {
@@ -444,6 +446,14 @@ export class MapContainer extends Component {
           onUpdateShapefile={onUpdateShapefile}
         />
         <GranuleImageContainer />
+        <GranulePlotter
+        collectionsMetadata={collectionsMetadata}
+        focusedCollectionId={focusedCollectionId}
+        granules={nonExcludedGranules}
+        granulesMetadata={granulesMetadata}
+        isProjectPage={isProjectPage}
+        project={project}
+        />
       </Map>
     )
   }

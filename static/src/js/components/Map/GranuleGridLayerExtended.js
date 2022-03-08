@@ -495,7 +495,9 @@ export class GranuleGridLayerExtended extends L.GridLayer {
           ctx.lineWidth = hole.deemphisized ? 1 : 1.5
         }
 
-        addPath(ctx, { poly: hole.poly.concat().reverse() })
+        if(hole.poly){
+          addPath(ctx, { poly: hole.poly.concat().reverse() })
+        }
       })
 
       ctx.stroke()
