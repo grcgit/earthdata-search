@@ -12,6 +12,9 @@ import { addToast } from '../../util/addToast'
 import { getFilenameFromPath } from '../../util/getFilenameFromPath'
 
 import './GranuleResultsDataLinksButton.scss'
+require('./style.css');
+
+const fetch = require('node-fetch');
 
 /**
  * Renders CustomDataLinksToggle.
@@ -45,6 +48,68 @@ CustomDataLinksToggle.propTypes = {
   onClick: PropTypes.func.isRequired
 }
 
+class Modal extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: '',
+      email: '',
+      message: ''
+    }
+  }
+
+  requestData = async () => { 
+    const response = await fetch(this.props.url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    });
+    const data = await response.json();
+  };
+
+  render() {
+    const showHideClassName = this.props.show ? "modal display-block" : "modal display-none";
+    return (
+      <div className={showHideClassName}>
+        <section className="modal-main">
+          <p>
+          {this.props.url}
+          </p>
+          <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input type="text" className="form-control" id="name" value={this.state.name} onChange={this.onNameChange.bind(this)} />
+          </div>
+          <div className="form-group">
+              <label htmlFor="exampleInputEmail1">Email address</label>
+              <input type="email" className="form-control" id="email" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)} />
+          </div>
+          <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <textarea className="form-control" rows="5" id="message" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
+          </div>
+          <button onClick={this.props.handleClose}>Close</button>
+          <button onClick={this.requestData}>Request Data</button>
+        </section>
+      </div>
+    );
+  }
+
+  onNameChange(event) {
+    this.setState({name: event.target.value})
+  }
+
+  onEmailChange(event) {
+    this.setState({email: event.target.value})
+  }
+
+  onMessageChange(event) {
+    this.setState({message: event.target.value})
+  }
+}
+
 /**
  * Renders GranuleResultsDataLinksButton.
  * @param {Object} props - The props passed into the component.
@@ -55,256 +120,296 @@ CustomDataLinksToggle.propTypes = {
  * @param {Array} props.s3Links - An array of AWS S3 links.
  * @param {Function} props.onMetricsDataAccess - The metrics callback.
  */
-export const GranuleResultsDataLinksButton = ({
-  collectionId,
-  buttonVariant,
-  dataLinks,
-  directDistributionInformation,
-  s3Links,
-  onMetricsDataAccess
-}) => {
-  const dropdownMenuRef = useRef(null)
+class GranuleResultsDataLinksButton extends React.Component {
+  constructor(props) {
+    super(props)
+    this.myRef = React.createRef()
+    this.props = props
+    this.state = {
+      show: false
+    }
+  }
 
-  // If only one datalink is provided and s3 links are not provided, a button is shown rather
-  // than a dropdown list. Otherwise, use a dropdown for the links.
-  if (dataLinks.length > 1 || s3Links.length > 0) {
-    const dataLinksList = dataLinks.map((dataLink, i) => {
-      const key = `data_link_${i}`
-      const dataLinkTitle = getFilenameFromPath(dataLink.href)
+  showModal = () => {
+    this.setState({ show: true });
+  };
 
-      return (
-        <Dropdown.Item
-          className="granule-results-data-links-button__dropdown-item"
-          key={key}
-          href={dataLink.href}
-          target="_blank"
-          title="Download file"
-          onClick={(e) => {
-            e.stopPropagation()
-            onMetricsDataAccess({
-              type: 'single_granule_download',
-              collections: [{
-                collectionId
-              }]
-            })
-            addToast(`Initiated download of file: ${dataLinkTitle}`, {
-              appearance: 'success',
-              autoDismiss: true
-            })
-          }}
-        >
-          {dataLinkTitle}
-          <FaDownload className="granule-results-data-links-button__icon granule-results-data-links-button__icon--download" />
-        </Dropdown.Item>
-      )
-    })
+  hideModal = () => {
+    this.setState({ show: false });
+  };
 
-    const s3LinksList = () => {
-      const {
-        region,
-        s3BucketAndObjectPrefixNames = [],
-        s3CredentialsApiDocumentationUrl,
-        s3CredentialsApiEndpoint
-      } = directDistributionInformation
+  requestData = async (dataURL,contact) => {
+    //const params = new URLSearchParams();
+    //params.append('a', 1);
 
-      return (
-        <div>
-          {
-            region && (
-              <header className="granule-results-data-links-button__menu-panel-heading">
-                <div className="granule-results-data-links-button__menu-panel-heading-row">
-                  <span className="granule-results-data-links-button__menu-panel-label granule-results-data-links-button__menu-panel-label--align">
-                    {'Region: '}
-                  </span>
-                  <CopyableText
-                    className="granule-results-data-links-button__menu-panel-value"
-                    text={region}
-                    label="Copy to clipboard"
-                    successMessage="Copied the AWS S3 region"
-                    failureMessage="Could not copy the AWS S3 region"
+    const body = {
+      name: contact.name,
+      email: contact.email
+    };
+    
+    const response = await fetch(dataURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    const data = await response.json();
+  };
+
+  render(){
+    const{
+    collectionId,
+    buttonVariant,
+    dataLinks,
+    directDistributionInformation,
+    s3Links,
+    onMetricsDataAccess
+    } = this.props
+
+    const dropdownMenuRef = this.myRef
+
+    // If only one datalink is provided and s3 links are not provided, a button is shown rather
+    // than a dropdown list. Otherwise, use a dropdown for the links.
+    if (dataLinks.length > 1 || s3Links.length > 0) {
+      const dataLinksList = dataLinks.map((dataLink, i) => {
+        const key = `data_link_${i}`
+        const dataLinkTitle = getFilenameFromPath(dataLink.href)
+
+        return (
+          <Dropdown.Item
+            className="granule-results-data-links-button__dropdown-item"
+            key={key}
+            href={dataLink.href}
+            target="_blank"
+            title="Download file"
+            onClick={(e) => {
+              e.stopPropagation()
+              onMetricsDataAccess({
+                type: 'single_granule_download',
+                collections: [{
+                  collectionId
+                }]
+              })
+              addToast(`Initiated download of file: ${dataLinkTitle}`, {
+                appearance: 'success',
+                autoDismiss: true
+              })
+            }}
+          >
+            {dataLinkTitle}
+            <FaDownload className="granule-results-data-links-button__icon granule-results-data-links-button__icon--download" />
+          </Dropdown.Item>
+        )
+      })
+
+      const s3LinksList = () => {
+        const {
+          region,
+          s3BucketAndObjectPrefixNames = [],
+          s3CredentialsApiDocumentationUrl,
+          s3CredentialsApiEndpoint
+        } = directDistributionInformation
+
+        return (
+          <div>
+            {
+              region && (
+                <header className="granule-results-data-links-button__menu-panel-heading">
+                  <div className="granule-results-data-links-button__menu-panel-heading-row">
+                    <span className="granule-results-data-links-button__menu-panel-label granule-results-data-links-button__menu-panel-label--align">
+                      {'Region: '}
+                    </span>
+                    <CopyableText
+                      className="granule-results-data-links-button__menu-panel-value"
+                      text={region}
+                      label="Copy to clipboard"
+                      successMessage="Copied the AWS S3 region"
+                      failureMessage="Could not copy the AWS S3 region"
+                    />
+                  </div>
+                  <div className="granule-results-data-links-button__menu-panel-heading-row">
+                    <span className="granule-results-data-links-button__menu-panel-label granule-results-data-links-button__menu-panel-label--align">
+                      {'Bucket/Object Prefix: '}
+                    </span>
+                    {s3BucketAndObjectPrefixNames.map((bucketAndObjPrefix, i) => (
+                      <React.Fragment key={`${region}_${bucketAndObjPrefix}`}>
+                        <CopyableText
+                          className="granule-results-data-links-button__menu-panel-value"
+                          text={bucketAndObjPrefix}
+                          label="Copy to clipboard"
+                          successMessage="Copied the AWS S3 Bucket/Object Prefix"
+                          failureMessage="Could not copy the AWS S3 Bucket/Object Prefix"
+                        />
+                        {i !== s3BucketAndObjectPrefixNames.length - 1 && ', '}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <div className="granule-results-data-links-button__menu-panel-heading-row">
+                    <span className="granule-results-data-links-button__menu-panel-label">
+                      {'AWS S3 Credentials: '}
+                    </span>
+                    <span className="granule-results-data-links-button__menu-panel-value">
+                      <a
+                        className="link link--external"
+                        href={s3CredentialsApiEndpoint}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Get AWS S3 Credentials
+                      </a>
+                      <a
+                        className="link link--separated link--external"
+                        href={s3CredentialsApiDocumentationUrl}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        View Documentation
+                      </a>
+                    </span>
+                  </div>
+                </header>
+              )
+            }
+            {
+              s3Links.map(({ href }, i) => {
+                const key = `s3_link_${i}`
+                const s3LinkTitle = getFilenameFromPath(href)
+
+                return (
+                  <Dropdown.Item
+                    key={key}
+                    as={CopyableText}
+                    className="granule-results-data-links-button__dropdown-item"
+                    label="Copy AWS S3 path to clipboard"
+                    textToCopy={href}
+                    text={s3LinkTitle}
+                    successMessage={() => `Copied AWS S3 path for: ${s3LinkTitle}`}
+                    failureMessage={() => `Could not copy AWS S3 path for: ${s3LinkTitle}`}
+                    onClick={() => {
+                      onMetricsDataAccess({
+                        type: 'single_granule_s3_access',
+                        collections: [{
+                          collectionId
+                        }]
+                      })
+                    }}
                   />
-                </div>
-                <div className="granule-results-data-links-button__menu-panel-heading-row">
-                  <span className="granule-results-data-links-button__menu-panel-label granule-results-data-links-button__menu-panel-label--align">
-                    {'Bucket/Object Prefix: '}
-                  </span>
-                  {s3BucketAndObjectPrefixNames.map((bucketAndObjPrefix, i) => (
-                    <React.Fragment key={`${region}_${bucketAndObjPrefix}`}>
-                      <CopyableText
-                        className="granule-results-data-links-button__menu-panel-value"
-                        text={bucketAndObjPrefix}
-                        label="Copy to clipboard"
-                        successMessage="Copied the AWS S3 Bucket/Object Prefix"
-                        failureMessage="Could not copy the AWS S3 Bucket/Object Prefix"
-                      />
-                      {i !== s3BucketAndObjectPrefixNames.length - 1 && ', '}
-                    </React.Fragment>
-                  ))}
-                </div>
-                <div className="granule-results-data-links-button__menu-panel-heading-row">
-                  <span className="granule-results-data-links-button__menu-panel-label">
-                    {'AWS S3 Credentials: '}
-                  </span>
-                  <span className="granule-results-data-links-button__menu-panel-value">
-                    <a
-                      className="link link--external"
-                      href={s3CredentialsApiEndpoint}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      Get AWS S3 Credentials
-                    </a>
-                    <a
-                      className="link link--separated link--external"
-                      href={s3CredentialsApiDocumentationUrl}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      View Documentation
-                    </a>
-                  </span>
-                </div>
-              </header>
+                )
+              })
+            }
+          </div>
+        )
+      }
+
+      return (
+        <Dropdown onClick={(e) => { e.stopPropagation() }} drop="right">
+          <Dropdown.Toggle as={CustomDataLinksToggle} />
+          {
+            ReactDOM.createPortal(
+              <Dropdown.Menu
+                ref={dropdownMenuRef}
+                className="granule-results-data-links-button__menu"
+              >
+                {
+                  s3Links.length > 0 && dataLinks.length > 0
+                    ? (
+                      <EDSCTabs padding={false}>
+                        <Tab
+                          className="granule-results-data-links-button__menu-panel"
+                          title={(
+                            <span className="granule-results-data-links-button__tab-text">
+                              <FaDownload className="granule-results-data-links-button__tab-icon" />
+                              Download Files
+                            </span>
+                          )}
+                          eventKey="download-files"
+                          tabIndex={0}
+                        >
+                          <div className="granule-results-data-links-button__list">
+                            {dataLinksList}
+                          </div>
+                        </Tab>
+                        <Tab
+                          className="granule-results-data-links-button__menu-panel"
+                          title={(
+                            <span className="granule-results-data-links-button__tab-text">
+                              <FaCloud className="granule-results-data-links-button__tab-icon" />
+                              AWS S3 Access
+                            </span>
+                          )}
+                          eventKey="aws-s3-access"
+                          tabIndex={0}
+                        >
+                          <div className="granule-results-data-links-button__list">
+                            {s3LinksList()}
+                          </div>
+                        </Tab>
+                      </EDSCTabs>
+                    )
+                    : (
+                      <>
+                        {
+                          dataLinks.length > 0 && (
+                            <div className="granule-results-data-links-button__menu-panel">
+                              <div className="tab-content">
+                                {dataLinksList}
+                              </div>
+                            </div>
+                          )
+                        }
+                        {
+                          s3Links.length > 0 && (
+                            <div className="granule-results-data-links-button__menu-panel">
+                              <div className="tab-content">
+                                {s3LinksList()}
+                              </div>
+                            </div>
+                          )
+                        }
+                      </>
+                    )
+                }
+              </Dropdown.Menu>,
+              document.querySelector('#root')
             )
           }
-          {
-            s3Links.map(({ href }, i) => {
-              const key = `s3_link_${i}`
-              const s3LinkTitle = getFilenameFromPath(href)
+        </Dropdown>
+      )
+    }
 
-              return (
-                <Dropdown.Item
-                  key={key}
-                  as={CopyableText}
-                  className="granule-results-data-links-button__dropdown-item"
-                  label="Copy AWS S3 path to clipboard"
-                  textToCopy={href}
-                  text={s3LinkTitle}
-                  successMessage={() => `Copied AWS S3 path for: ${s3LinkTitle}`}
-                  failureMessage={() => `Could not copy AWS S3 path for: ${s3LinkTitle}`}
-                  onClick={() => {
-                    onMetricsDataAccess({
-                      type: 'single_granule_s3_access',
-                      collections: [{
-                        collectionId
-                      }]
-                    })
-                  }}
-                />
-              )
-            })
-          }
+    if (dataLinks.length === 1) {
+      const urltarget = dataLinks[0].href
+      return (
+        <div>
+        <Button
+          className="button granule-results-data-links-button__button"
+          icon={FaDownload}
+          variant={buttonVariant}
+          //href={dataLinks[0].href}
+          onClick={this.showModal.bind(this)}
+          rel="noopener noreferrer"
+          label="Download single granule data"
+          target="_blank"
+        />
+        <Modal show={this.state.show} handleClose={this.hideModal} url={urltarget}>
+        </Modal>
         </div>
       )
     }
 
     return (
-      <Dropdown onClick={(e) => { e.stopPropagation() }} drop="right">
-        <Dropdown.Toggle as={CustomDataLinksToggle} />
-        {
-          ReactDOM.createPortal(
-            <Dropdown.Menu
-              ref={dropdownMenuRef}
-              className="granule-results-data-links-button__menu"
-            >
-              {
-                s3Links.length > 0 && dataLinks.length > 0
-                  ? (
-                    <EDSCTabs padding={false}>
-                      <Tab
-                        className="granule-results-data-links-button__menu-panel"
-                        title={(
-                          <span className="granule-results-data-links-button__tab-text">
-                            <FaDownload className="granule-results-data-links-button__tab-icon" />
-                            Download Files
-                          </span>
-                        )}
-                        eventKey="download-files"
-                        tabIndex={0}
-                      >
-                        <div className="granule-results-data-links-button__list">
-                          {dataLinksList}
-                        </div>
-                      </Tab>
-                      <Tab
-                        className="granule-results-data-links-button__menu-panel"
-                        title={(
-                          <span className="granule-results-data-links-button__tab-text">
-                            <FaCloud className="granule-results-data-links-button__tab-icon" />
-                            AWS S3 Access
-                          </span>
-                        )}
-                        eventKey="aws-s3-access"
-                        tabIndex={0}
-                      >
-                        <div className="granule-results-data-links-button__list">
-                          {s3LinksList()}
-                        </div>
-                      </Tab>
-                    </EDSCTabs>
-                  )
-                  : (
-                    <>
-                      {
-                        dataLinks.length > 0 && (
-                          <div className="granule-results-data-links-button__menu-panel">
-                            <div className="tab-content">
-                              {dataLinksList}
-                            </div>
-                          </div>
-                        )
-                      }
-                      {
-                        s3Links.length > 0 && (
-                          <div className="granule-results-data-links-button__menu-panel">
-                            <div className="tab-content">
-                              {s3LinksList()}
-                            </div>
-                          </div>
-                        )
-                      }
-                    </>
-                  )
-              }
-            </Dropdown.Menu>,
-            document.querySelector('#root')
-          )
-        }
-      </Dropdown>
-    )
-  }
-
-  if (dataLinks.length === 1) {
-    return (
       <Button
         className="button granule-results-data-links-button__button"
-        icon={FaDownload}
         variant={buttonVariant}
-        href={dataLinks[0].href}
-        onClick={() => onMetricsDataAccess({
-          type: 'single_granule_download',
-          collections: [{
-            collectionId
-          }]
-        })}
-        rel="noopener noreferrer"
-        label="Download single granule data"
-        target="_blank"
+        type="button"
+        icon={FaDownload}
+        label="No download link available"
+        disabled
+        onClick={e => e.preventDefault()}
       />
     )
   }
-
-  return (
-    <Button
-      className="button granule-results-data-links-button__button"
-      variant={buttonVariant}
-      type="button"
-      icon={FaDownload}
-      label="No download link available"
-      disabled
-      onClick={e => e.preventDefault()}
-    />
-  )
 }
 
 GranuleResultsDataLinksButton.displayName = 'GranuleResultsDataLinksButton'
