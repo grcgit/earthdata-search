@@ -43,6 +43,72 @@ import { metricsCollectionSortChange } from '../../middleware/metrics/actions'
 import advancedSearchFields from '../../data/advancedSearchFields'
 import { getApplicationConfig } from '../../../../../sharedUtils/config'
 
+import '../../components/GranuleResults/style.css'
+
+const fetch = require('node-fetch');
+class Modal extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: '',
+      email: '',
+      message: ''
+    }
+  }
+
+  requestData = async () => { 
+    const response = await fetch(this.props.url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    });
+    const data = await response.json();
+  };
+
+  render() {
+    const showHideClassName = this.props.show ? "modal display-block" : "modal display-none";
+    // const showHideClassName = "modal display-block"
+    return (
+      <div className={showHideClassName}>
+        <section className="modal-main">
+          <p>
+          {this.props.url}
+          </p>
+          <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input type="text" className="form-control" id="name" value={this.state.name} onChange={this.onNameChange.bind(this)} />
+          </div>
+          <div className="form-group">
+              <label htmlFor="exampleInputEmail1">Email address</label>
+              <input type="email" className="form-control" id="email" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)} />
+          </div>
+          <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <textarea className="form-control" rows="5" id="message" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
+          </div>
+          <button onClick={this.props.closeCallback}>Close</button>
+          <button onClick={this.requestData}>Request Data</button>
+        </section>
+      </div>
+    );
+  }
+
+  onNameChange(event) {
+    this.setState({name: event.target.value})
+  }
+
+  onEmailChange(event) {
+    this.setState({email: event.target.value})
+  }
+
+  onMessageChange(event) {
+    this.setState({message: event.target.value})
+  }
+}
+
 const mapDispatchToProps = dispatch => ({
   onUpdateAdvancedSearch:
     values => dispatch(actions.updateAdvancedSearch(values)),
@@ -51,11 +117,15 @@ const mapDispatchToProps = dispatch => ({
   onChangeQuery:
     query => dispatch(actions.changeQuery(query)),
   onMetricsCollectionSortChange:
-    data => dispatch(metricsCollectionSortChange(data))
+    data => dispatch(metricsCollectionSortChange(data)),
+  onToggleContactModal:
+    state => dispatch(actions.toggleContactModal(state))
 })
 
 const mapStateToProps = state => ({
-  collectionQuery: state.query.collection
+  collectionQuery: state.query.collection,
+  isOpen: state.ui.contactModal.isOpen,
+  download_url: state.ui.contactModal.URL
 })
 
 /**
@@ -70,7 +140,10 @@ export const Search = ({
   collectionQuery,
   match,
   onUpdateAdvancedSearch,
-  onChangeQuery
+  onChangeQuery,
+  isOpen,
+  onToggleContactModal,
+  download_url
 }) => {
   const { path } = match
   const [granuleFiltersNeedsReset, setGranuleFiltersNeedReset] = useState(false)
@@ -101,8 +174,14 @@ export const Search = ({
     })
   }
 
+  const payload = {}
+  payload.url = ""
+  payload.display = false
+
   return (
     <div className="route-wrapper route-wrapper--search search">
+      <Modal show={isOpen} closeCallback={()=>onToggleContactModal(payload)} url={download_url}>
+      </Modal>
       <SidebarContainer
         headerChildren={(
           <SearchSidebarHeaderContainer />

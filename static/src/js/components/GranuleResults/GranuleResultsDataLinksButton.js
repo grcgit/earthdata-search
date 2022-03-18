@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { Dropdown, Tab } from 'react-bootstrap'
+import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import { FaDownload, FaCloud } from 'react-icons/fa'
 
@@ -11,8 +12,9 @@ import EDSCTabs from '../EDSCTabs/EDSCTabs'
 import { addToast } from '../../util/addToast'
 import { getFilenameFromPath } from '../../util/getFilenameFromPath'
 
+import actions from '../../actions'
+
 import './GranuleResultsDataLinksButton.scss'
-require('./style.css');
 
 const fetch = require('node-fetch');
 
@@ -48,67 +50,13 @@ CustomDataLinksToggle.propTypes = {
   onClick: PropTypes.func.isRequired
 }
 
-class Modal extends React.Component {
+export const mapStateToProps = state => ({
+})
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      name: '',
-      email: '',
-      message: ''
-    }
-  }
-
-  requestData = async () => { 
-    const response = await fetch(this.props.url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    });
-    const data = await response.json();
-  };
-
-  render() {
-    const showHideClassName = this.props.show ? "modal display-block" : "modal display-none";
-    return (
-      <div className={showHideClassName}>
-        <section className="modal-main">
-          <p>
-          {this.props.url}
-          </p>
-          <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input type="text" className="form-control" id="name" value={this.state.name} onChange={this.onNameChange.bind(this)} />
-          </div>
-          <div className="form-group">
-              <label htmlFor="exampleInputEmail1">Email address</label>
-              <input type="email" className="form-control" id="email" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)} />
-          </div>
-          <div className="form-group">
-              <label htmlFor="message">Message</label>
-              <textarea className="form-control" rows="5" id="message" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
-          </div>
-          <button onClick={this.props.handleClose}>Close</button>
-          <button onClick={this.requestData}>Request Data</button>
-        </section>
-      </div>
-    );
-  }
-
-  onNameChange(event) {
-    this.setState({name: event.target.value})
-  }
-
-  onEmailChange(event) {
-    this.setState({email: event.target.value})
-  }
-
-  onMessageChange(event) {
-    this.setState({message: event.target.value})
-  }
-}
+export const mapDispatchToProps = dispatch => ({
+  onToggleContactModal:
+    state => dispatch(actions.toggleContactModal(state))
+})
 
 /**
  * Renders GranuleResultsDataLinksButton.
@@ -164,7 +112,8 @@ class GranuleResultsDataLinksButton extends React.Component {
     dataLinks,
     directDistributionInformation,
     s3Links,
-    onMetricsDataAccess
+    onMetricsDataAccess,
+    onToggleContactModal
     } = this.props
 
     const dropdownMenuRef = this.myRef
@@ -379,7 +328,9 @@ class GranuleResultsDataLinksButton extends React.Component {
     }
 
     if (dataLinks.length === 1) {
-      const urltarget = dataLinks[0].href
+      const payload = {}
+      payload.url = dataLinks[0].href
+      payload.display = true
       return (
         <div>
         <Button
@@ -387,13 +338,11 @@ class GranuleResultsDataLinksButton extends React.Component {
           icon={FaDownload}
           variant={buttonVariant}
           //href={dataLinks[0].href}
-          onClick={this.showModal.bind(this)}
+          onClick={() => onToggleContactModal(payload)}
           rel="noopener noreferrer"
           label="Download single granule data"
           target="_blank"
         />
-        <Modal show={this.state.show} handleClose={this.hideModal} url={urltarget}>
-        </Modal>
         </div>
       )
     }
@@ -427,4 +376,4 @@ GranuleResultsDataLinksButton.propTypes = {
   onMetricsDataAccess: PropTypes.func.isRequired
 }
 
-export default GranuleResultsDataLinksButton
+export default connect(mapStateToProps, mapDispatchToProps)(GranuleResultsDataLinksButton)

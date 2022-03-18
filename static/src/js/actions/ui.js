@@ -12,8 +12,14 @@ import {
   TOGGLE_SPATIAL_POLYGON_WARNING,
   TOGGLE_TIMELINE,
   TOGGLE_TOO_MANY_POINTS_MODAL,
-  TOGGLE_VIEW_ALL_FACETS_MODAL
+  TOGGLE_VIEW_ALL_FACETS_MODAL,
+  TOGGLE_CONTACT_MODAL
 } from '../constants/actionTypes'
+
+export const toggleContactModal = state => ({
+  type: TOGGLE_CONTACT_MODAL,
+  payload: state
+})
 
 export const toggleFacetsModal = state => ({
   type: TOGGLE_VIEW_ALL_FACETS_MODAL,

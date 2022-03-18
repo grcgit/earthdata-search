@@ -14,13 +14,18 @@ import {
   TOGGLE_SPATIAL_POLYGON_WARNING,
   TOGGLE_TIMELINE,
   TOGGLE_TOO_MANY_POINTS_MODAL,
-  TOGGLE_VIEW_ALL_FACETS_MODAL
+  TOGGLE_VIEW_ALL_FACETS_MODAL,
+  TOGGLE_CONTACT_MODAL
 } from '../constants/actionTypes'
 
 const initialState = {
   granuleResultsPanel: {
     sortOrder: '-start_date',
     searchValue: ''
+  },
+  contactModal: {
+    isOpen: false,
+    URL: ""
   },
   facetsModal: {
     isOpen: false
@@ -74,6 +79,15 @@ const initialState = {
 
 const uiReducer = (state = initialState, action) => {
   switch (action.type) {
+    case TOGGLE_CONTACT_MODAL: {
+      return {
+        ...state,
+        contactModal: {
+          isOpen: action.payload.display,
+          URL: action.payload.url
+        }
+      }
+    }
     case TOGGLE_VIEW_ALL_FACETS_MODAL: {
       return {
         ...state,
