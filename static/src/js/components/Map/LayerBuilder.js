@@ -26,6 +26,9 @@ const LayerBuilder = (props) => {
         [-89.9999, -179.9999],
         [89.9999, 179.9999]
       ]}
+      maxNativeZoom={7}
+      minZoom={0}
+      maxZoom={10}
       tileSize={512}
       noWrap
       continuousWorld

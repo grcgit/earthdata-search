@@ -294,7 +294,8 @@ export class MapContainer extends Component {
 
     const center = [latitude, longitude]
 
-    const maxZoom = projection === projections.geographic ? 7 : 4 //zoomlevel
+    const maxZoom = projection === projections.geographic ? 10 : 4 //zoomlevel
+    const maxNativeZoom = projection === projections.geographic ? 7 : 4 //zoomlevel
 
     let nonExcludedGranules
     if (focusedCollectionId && granuleSearchResults) {
@@ -325,6 +326,7 @@ export class MapContainer extends Component {
         center={center}
         zoom={zoom}
         maxZoom={maxZoom}
+        maxNativeZoom={maxNativeZoom}
         crs={crsProjections[projection]}
         ref={(ref) => { this.mapRef = ref }}
         zoomControl={false}

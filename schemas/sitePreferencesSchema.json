@@ -88,7 +88,7 @@
           "type": "number",
           "title": "Zoom",
           "minimum": 0,
-          "maximum": 7, //zoomlevel
+          "maximum": 10, //zoomlevel
           "default": 2
         },
         "projection": {
