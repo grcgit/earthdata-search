@@ -1088,6 +1088,8 @@ export class GranuleGridLayerExtended extends L.GridLayer {
 
     let excludeHtml = ''
 
+    temporalLabel = granule.title
+
     if (!this.isProjectPage) {
       excludeHtml = `
         <button class="granule-grid-layer-extended__panel-list-remove" data-granule-id="${granuleId}" title="Filter granule">
