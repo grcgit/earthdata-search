@@ -61,7 +61,8 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   collectionQuery: state.query.collection,
   contactModalOpen: state.ui.contactModal.isOpen,
-  contactModalURL: state.ui.contactModal.URL
+  contactModalURL: state.ui.contactModal.URL,
+  contactModalName: state.ui.contactModal.name
 })
 
 /**
@@ -79,7 +80,8 @@ export const Search = ({
   onChangeQuery,
   contactModalOpen,
   onToggleContactModal,
-  contactModalURL
+  contactModalURL,
+  contactModalName
 }) => {
   const { path } = match
   const [granuleFiltersNeedsReset, setGranuleFiltersNeedReset] = useState(false)
@@ -116,7 +118,7 @@ export const Search = ({
 
   return (
     <div className="route-wrapper route-wrapper--search search">
-      <ContactModal show={contactModalOpen} closeCallback={()=>onToggleContactModal(contactModalPayload)} url={contactModalURL}>
+      <ContactModal show={contactModalOpen} closeCallback={()=>onToggleContactModal(contactModalPayload)} url={contactModalURL} name={contactModalName}>
       </ContactModal>
       <SidebarContainer
         headerChildren={(

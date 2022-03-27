@@ -273,6 +273,7 @@ const GranuleResultsItem = forwardRef(({
                     directDistributionInformation={directDistributionInformation}
                     s3Links={s3Links}
                     onMetricsDataAccess={onMetricsDataAccess}
+                    title={title}
                   />
                 )
               }

@@ -412,7 +412,7 @@ export const viewCollectionDetails = collectionId => (dispatch, getState) => {
   const { search } = location
 
   dispatch(actions.changeUrl({
-    pathname: `${portalPathFromState(getState())}/search/granules/collection-details`,
+    pathname: `${portalPathFromState(getState())}/granules/collection-details`,
     search
   }))
 }

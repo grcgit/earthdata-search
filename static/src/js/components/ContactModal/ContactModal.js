@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import {
+  Form
+} from 'react-bootstrap'
 
 import './style.css'
 
@@ -9,9 +12,9 @@ class ContactModal extends Component {
     constructor(props) {
       super(props)
       this.state = {
+        newname: '',
         name: '',
-        email: '',
-        message: ''
+        email: ''
       }
     }
   
@@ -23,32 +26,56 @@ class ContactModal extends Component {
         },
         body: JSON.stringify(this.state)
       });
-      const data = await response.json();
+      
+      if(response.ok){
+        this.props.closeCallback();
+      }
     };
   
     render() {
       const showHideClassName = this.props.show ? "modal display-block" : "modal display-none";
-      // const showHideClassName = "modal display-block"
       return (
         <div className={showHideClassName}>
           <section className="modal-main">
-            <p>
-            {this.props.url}
-            </p>
-            <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input type="text" className="form-control" id="name" value={this.state.name} onChange={this.onNameChange.bind(this)} />
+            <p className='modal-title-group'> Submit Request for {this.props.name}</p>
+            <div className='modal-form-d'>
+                <Form.Group
+                  controlId="contact-modal-name"
+                >
+                  <Form.Label className="modal-form" sm="auto">
+                    Name
+                  </Form.Label>
+                  <Form.Control
+                    name="Name"
+                    size="m"
+                    type="text"
+                    placeholder="Your Name"
+                    value={this.state.name}
+                    onChange={this.onNameChange.bind(this)}
+                  />
+                </Form.Group>
             </div>
-            <div className="form-group">
-                <label htmlFor="exampleInputEmail1">Email address</label>
-                <input type="email" className="form-control" id="email" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)} />
+            <div className='modal-form-d'>
+                <Form.Group
+                  controlId="contact-modal-email"
+                >
+                  <Form.Label className="modal-form" sm="auto">
+                    Email Address
+                  </Form.Label>
+                  <Form.Control
+                    name="Email Address"
+                    size="m"
+                    type="email"
+                    placeholder="Your Email"
+                    value={this.state.email}
+                    onChange={this.onEmailChange.bind(this)}
+                  />
+                </Form.Group>
             </div>
-            <div className="form-group">
-                <label htmlFor="message">Message</label>
-                <textarea className="form-control" rows="5" id="message" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
+            <div className='modal-button-d'>
+              <button className='modal-button-request' onClick={this.requestData}>Request Data</button>
+              <button className='modal-button-cancel' onClick={this.props.closeCallback}>Close</button>
             </div>
-            <button onClick={this.props.closeCallback}>Close</button>
-            <button onClick={this.requestData}>Request Data</button>
           </section>
         </div>
       );
@@ -62,9 +89,6 @@ class ContactModal extends Component {
       this.setState({email: event.target.value})
     }
   
-    onMessageChange(event) {
-      this.setState({message: event.target.value})
-    }
 }
 
 export default ContactModal

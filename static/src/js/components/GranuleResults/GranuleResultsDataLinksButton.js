@@ -113,7 +113,8 @@ class GranuleResultsDataLinksButton extends React.Component {
     directDistributionInformation,
     s3Links,
     onMetricsDataAccess,
-    onToggleContactModal
+    onToggleContactModal,
+    title
     } = this.props
 
     const dropdownMenuRef = this.myRef
@@ -330,6 +331,7 @@ class GranuleResultsDataLinksButton extends React.Component {
     if (dataLinks.length === 1) {
       const payload = {}
       payload.url = dataLinks[0].href
+      payload.name = title
       payload.display = true
       return (
         <div>

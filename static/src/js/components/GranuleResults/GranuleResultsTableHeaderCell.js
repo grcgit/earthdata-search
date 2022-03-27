@@ -120,6 +120,7 @@ const GranuleResultsTableHeaderCell = (props) => {
               s3Links={s3Links}
               onMetricsDataAccess={onMetricsDataAccess}
               buttonVariant="naked"
+              title={id}
             />
           )
         }

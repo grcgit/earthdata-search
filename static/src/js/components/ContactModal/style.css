@@ -10,7 +10,7 @@
   .modal-main {
     position:fixed;
     background: white;
-    width: 50%;
+    width: 35%;
     height: auto;
     top:50%;
     left:50%;
@@ -24,3 +24,46 @@
   .display-none {
     display: none;
   }
+
+.modal-title-group{
+  text-align: center;
+  font: 2em sans-serif;
+  word-wrap: break-word;
+  padding: 32px 32px;
+}
+
+.modal-form-d{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.modal-form{
+  font: 1.5em;
+}
+
+.modal-button-d{
+  text-align: center;
+}
+
+.modal-button-request{
+  background-color: #1b3eb3;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font: 1.5em;
+  margin-right:10px;
+}
+
+.modal-button-cancel{
+  background-color: #dd2323;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font: 1.5em;
+}

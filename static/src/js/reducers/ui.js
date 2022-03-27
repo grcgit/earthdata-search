@@ -25,7 +25,8 @@ const initialState = {
   },
   contactModal: {
     isOpen: false,
-    URL: ""
+    URL: "",
+    name: ""
   },
   facetsModal: {
     isOpen: false
@@ -84,7 +85,8 @@ const uiReducer = (state = initialState, action) => {
         ...state,
         contactModal: {
           isOpen: action.payload.display,
-          URL: action.payload.url
+          URL: action.payload.url,
+          name: action.payload.name
         }
       }
     }
