@@ -1,3 +1,4 @@
+import { replace } from 'lodash';
 import React, { Component } from 'react'
 import {
   Form
@@ -18,8 +19,11 @@ class ContactModal extends Component {
       }
     }
   
-    requestData = async () => { 
-      const response = await fetch(this.props.url, {
+    requestData = async () => {
+      let domain = window.location.origin.split(':')
+      let url = this.props.url
+      let new_url = url.replace('//localhost',domain[1])
+      const response = await fetch(new_url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
