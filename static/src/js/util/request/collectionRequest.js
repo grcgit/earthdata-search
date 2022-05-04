@@ -23,7 +23,10 @@ export default class CollectionRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'collections'
     } else {
-      super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      let domain = window.location.origin.split(':')
+      let cmrdomain = domain[0] + ':' + domain[1] + ':3003' 
+      super(cmrdomain, earthdataEnvironment)
 
       // We do not define an extension here. It will be added in the search method.
       this.searchPath = 'collections.json'
@@ -161,8 +164,9 @@ export default class CollectionRequest extends CmrRequest {
       const w = getApplicationConfig().thumbnailSize.width
 
       if (collection.id) {
+        let domain = window.location.origin.split(':')
         transformedCollection.thumbnail = collection.browse_flag
-          ? `http://localhost:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
+          ? `http://${domain[1]}:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
           : unavailableImg
       }
 

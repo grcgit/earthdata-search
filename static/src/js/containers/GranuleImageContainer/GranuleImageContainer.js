@@ -25,7 +25,8 @@ export const GranuleImageContainer = ({
   let imageSrc = ''
 
   if (browseFlag) {
-    imageSrc = `http://localhost:8081/browse-scaler/browse_images/granules/${focusedGranuleId}?h=512&w=512`
+    let domain = window.location.origin.split(':')
+    imageSrc = `http://${domain[1]}:8081/browse-scaler/browse_images/granules/${focusedGranuleId}?h=512&w=512`
   }
 
   return (

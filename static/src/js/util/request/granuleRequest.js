@@ -19,7 +19,10 @@ export default class GranuleRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'granules'
     } else {
-      super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      let domain = window.location.origin.split(':')
+      let cmrdomain = domain[0] + ':' + domain[1] + ':3003' 
+      super(cmrdomain, earthdataEnvironment)
 
       this.searchPath = 'granules.json'
     }
@@ -93,7 +96,8 @@ export default class GranuleRequest extends CmrRequest {
 
       if (granule.id) {
         // eslint-disable-next-line
-        updatedGranule.thumbnail = `http://localhost:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
+        let domain = window.location.origin.split(':')
+        updatedGranule.thumbnail = `http://${domain[1]}:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
       }
 
       if (granule.links && granule.links.length > 0) {
