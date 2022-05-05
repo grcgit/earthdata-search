@@ -166,7 +166,7 @@ export default class CollectionRequest extends CmrRequest {
       if (collection.id) {
         let domain = window.location.origin.split(':')
         transformedCollection.thumbnail = collection.browse_flag
-          ? `http://${domain[1]}:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
+          ? `https://${domain[1]}:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
           : unavailableImg
       }
 

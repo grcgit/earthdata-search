@@ -65,7 +65,7 @@ const GranulePlotter = (props) => {
             let domain = window.location.origin.split(':')
             keys.forEach(key => {
                 if (collectionGranules[key].browseUrl){
-                    let localimageSrc = `http://${domain[1]}:8081/browse-scaler/browse_images/granules/${collectionGranules[key].id}?h=512&w=512`
+                    let localimageSrc = `https://${domain[1]}:8081/browse-scaler/browse_images/granules/${collectionGranules[key].id}?h=512&w=512`
                     let boundstext = collectionGranules[key].boxes[0].split(" ")
                     let lat1 = parseFloat(boundstext[0])
                     let lon1 = parseFloat(boundstext[1])

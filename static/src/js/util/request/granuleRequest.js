@@ -97,7 +97,7 @@ export default class GranuleRequest extends CmrRequest {
       if (granule.id) {
         // eslint-disable-next-line
         let domain = window.location.origin.split(':')
-        updatedGranule.thumbnail = `http://${domain[1]}:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
+        updatedGranule.thumbnail = `https://${domain[1]}:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
       }
 
       if (granule.links && granule.links.length > 0) {
