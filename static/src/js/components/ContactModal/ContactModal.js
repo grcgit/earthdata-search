@@ -22,6 +22,7 @@ class ContactModal extends Component {
     requestData = async () => {
       let domain = window.location.origin.split(':')
       let url = this.props.url
+      url = url.replace('http:','https:')
       let new_url = url.replace('//localhost',domain[1])
       const response = await fetch(new_url, {
         method: 'POST',
