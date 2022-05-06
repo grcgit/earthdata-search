@@ -16,7 +16,7 @@ export default class TimelineRequest extends CmrRequest {
     } else {
       //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
       let domain = window.location.origin.split(':')
-      let cmrdomain = domain[0] + ':' + domain[1] + ':3003' 
+      let cmrdomain = 'http:' + domain[1] + ':3003' 
       super(cmrdomain, earthdataEnvironment)
 
       this.searchPath = 'granules/timeline'

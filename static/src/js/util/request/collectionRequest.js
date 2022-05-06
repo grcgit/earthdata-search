@@ -25,7 +25,7 @@ export default class CollectionRequest extends CmrRequest {
     } else {
       //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
       let domain = window.location.origin.split(':')
-      let cmrdomain = domain[0] + ':' + domain[1] + ':3003' 
+      let cmrdomain = 'http:' + domain[1] + ':3003' 
       super(cmrdomain, earthdataEnvironment)
 
       // We do not define an extension here. It will be added in the search method.
