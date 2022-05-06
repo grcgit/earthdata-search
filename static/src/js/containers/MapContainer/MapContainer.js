@@ -278,6 +278,10 @@ export class MapContainer extends Component {
         zoom
       } = mapPreferences)
 
+      latitude = -22
+      longitude = 17
+      zoom = 5
+
       const {
         baseLayer,
         overlayLayers = []
