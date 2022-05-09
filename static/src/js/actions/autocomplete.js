@@ -108,12 +108,12 @@ export const fetchAutocomplete = data => (dispatch, getState) => {
 
       dispatch(onAutocompleteLoaded({ loaded: false }))
 
-      dispatch(handleError({
-        error,
-        action: 'fetchAutocomplete',
-        resource: 'suggestions',
-        requestObject
-      }))
+      // dispatch(handleError({
+      //   error,
+      //   action: 'fetchAutocomplete',
+      //   resource: 'suggestions',
+      //   requestObject
+      // }))
     })
 
   return response
