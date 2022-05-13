@@ -97,8 +97,9 @@ export default class GranuleRequest extends CmrRequest {
       if (granule.id) {
         // eslint-disable-next-line
         const domain = window.location.origin.split(':')
+        const { secureDDS } = getApplicationConfig()
         var protocol = "http"
-        if(getApplicationConfig.secureDDS){
+        if(secureDDS){
           protocol = "https"
         }
         updatedGranule.thumbnail = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`

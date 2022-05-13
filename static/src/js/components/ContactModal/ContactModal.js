@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {
   Form
 } from 'react-bootstrap'
+import { getApplicationConfig } from '../../../../../sharedUtils/config'
 
 import './style.css'
 
@@ -21,9 +22,12 @@ class ContactModal extends Component {
   
     requestData = async () => {
       const domain = window.location.origin.split(':')
-      let url = this.props.url
-      url = url.replace('http:','https:')
-      let new_url = url.replace('//localhost',domain[1])
+      var url = this.props.url
+      const { secureDDS } = getApplicationConfig()
+      if(secureDDS){
+        url = url.replace('http:','https:')
+      }
+      const new_url = url.replace('//localhost',domain[1])
       const response = await fetch(new_url, {
         method: 'POST',
         headers: {

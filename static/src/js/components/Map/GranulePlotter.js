@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ImageOverlay } from 'react-leaflet'
 import L from 'leaflet'
+import { getApplicationConfig } from '../../../../../sharedUtils/config'
 
 function isArray(obj) {
     return Object.prototype.toString.call(obj) === '[object Array]';
@@ -63,9 +64,10 @@ const GranulePlotter = (props) => {
             var collectionGranules = layers[focusedCollectionId].granules.byId
             var keys = Object.keys(collectionGranules)
             const domain = window.location.origin.split(':')
+            const { secureDDS } = getApplicationConfig()
             var protocol = "http"
-            if(getApplicationConfig.secureDDS){
-              protocol = "https"
+            if(secureDDS){
+                protocol = "https"
             }
             keys.forEach(key => {
                 if (collectionGranules[key].browseUrl){

@@ -7,6 +7,8 @@ import { getEarthdataEnvironment } from '../../selectors/earthdataEnvironment'
 import { getFocusedGranuleId } from '../../selectors/focusedGranule'
 import { getFocusedGranuleMetadata } from '../../selectors/granuleMetadata'
 
+import { getApplicationConfig } from '../../../../../sharedUtils/config'
+
 import GranuleImage from '../../components/GranuleImage/GranuleImage'
 
 export const mapStateToProps = state => ({
@@ -26,8 +28,11 @@ export const GranuleImageContainer = ({
 
   if (browseFlag) {
     const domain = window.location.origin.split(':')
+
+    const { secureDDS } = getApplicationConfig()
+
     var protocol = "http"
-    if(getApplicationConfig.secureDDS){
+    if(secureDDS){
       protocol = "https"
     }
     imageSrc = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${focusedGranuleId}?h=512&w=512`

@@ -165,8 +165,9 @@ export default class CollectionRequest extends CmrRequest {
 
       if (collection.id) {
         const domain = window.location.origin.split(':')
+        const { secureDDS } = getApplicationConfig()
         var protocol = "http"
-        if(getApplicationConfig.secureDDS){
+        if(secureDDS){
           protocol = "https"
         }
         transformedCollection.thumbnail = collection.browse_flag
