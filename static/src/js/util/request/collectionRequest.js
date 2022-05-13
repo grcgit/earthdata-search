@@ -24,7 +24,7 @@ export default class CollectionRequest extends CmrRequest {
       this.searchPath = 'collections'
     } else {
       //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
-      let domain = window.location.origin.split(':')
+      const domain = window.location.origin.split(':')
       let cmrdomain = 'http:' + domain[1] + ':3003' 
       super(cmrdomain, earthdataEnvironment)
 
@@ -164,9 +164,13 @@ export default class CollectionRequest extends CmrRequest {
       const w = getApplicationConfig().thumbnailSize.width
 
       if (collection.id) {
-        let domain = window.location.origin.split(':')
+        const domain = window.location.origin.split(':')
+        var protocol = "http"
+        if(getApplicationConfig.secureDDS){
+          protocol = "https"
+        }
         transformedCollection.thumbnail = collection.browse_flag
-          ? `https://${domain[1]}:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
+          ? `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
           : unavailableImg
       }
 

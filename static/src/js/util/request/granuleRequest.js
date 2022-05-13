@@ -20,7 +20,7 @@ export default class GranuleRequest extends CmrRequest {
       this.searchPath = 'granules'
     } else {
       //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
-      let domain = window.location.origin.split(':')
+      const domain = window.location.origin.split(':')
       let cmrdomain = 'http:' + domain[1] + ':3003' 
       super(cmrdomain, earthdataEnvironment)
 
@@ -96,8 +96,12 @@ export default class GranuleRequest extends CmrRequest {
 
       if (granule.id) {
         // eslint-disable-next-line
-        let domain = window.location.origin.split(':')
-        updatedGranule.thumbnail = `https://${domain[1]}:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
+        const domain = window.location.origin.split(':')
+        var protocol = "http"
+        if(getApplicationConfig.secureDDS){
+          protocol = "https"
+        }
+        updatedGranule.thumbnail = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
       }
 
       if (granule.links && granule.links.length > 0) {

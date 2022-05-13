@@ -62,10 +62,14 @@ const GranulePlotter = (props) => {
         if (layers[focusedCollectionId].granules.byId){
             var collectionGranules = layers[focusedCollectionId].granules.byId
             var keys = Object.keys(collectionGranules)
-            let domain = window.location.origin.split(':')
+            const domain = window.location.origin.split(':')
+            var protocol = "http"
+            if(getApplicationConfig.secureDDS){
+              protocol = "https"
+            }
             keys.forEach(key => {
                 if (collectionGranules[key].browseUrl){
-                    let localimageSrc = `https://${domain[1]}:8081/browse-scaler/browse_images/granules/${collectionGranules[key].id}?h=512&w=512`
+                    let localimageSrc = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${collectionGranules[key].id}?h=512&w=512`
                     let boundstext = collectionGranules[key].boxes[0].split(" ")
                     let lat1 = parseFloat(boundstext[0])
                     let lon1 = parseFloat(boundstext[1])

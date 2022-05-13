@@ -16,7 +16,7 @@ export default class GranuleConceptRequest extends CmrRequest {
       this.searchPath = 'concepts'
     } else {
       //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
-      let domain = window.location.origin.split(':')
+      const domain = window.location.origin.split(':')
       let cmrdomain = 'http:' + domain[1] + ':3003' 
       super(cmrdomain, earthdataEnvironment)
 
