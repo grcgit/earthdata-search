@@ -45,6 +45,16 @@ import '../../util/map/sphericalPolygon'
 import 'leaflet/dist/leaflet.css'
 import './MapContainer.scss'
 
+import { getApplicationConfig } from '../../../../../sharedUtils/config'
+
+const { getPortalConfig } = require('../../util/portals')
+
+const {
+  defaultPortal,
+} = getApplicationConfig()
+
+const portalConfig = getPortalConfig(defaultPortal)
+
 const { BaseLayer, Overlay } = LayersControl
 
 export const mapDispatchToProps = dispatch => ({
@@ -278,10 +288,16 @@ export class MapContainer extends Component {
         zoom
       } = mapPreferences)
 
-      latitude = -22
-      longitude = 17
-      zoom = 5
-
+      if(portalConfig.home.latitude){
+        latitude = portalConfig.home.latitude
+      }
+      if(portalConfig.home.longitude){
+        longitude = portalConfig.home.longitude
+      }
+      if(portalConfig.home.zoom){
+        zoom = portalConfig.home.zoom
+      }
+      
       const {
         baseLayer,
         overlayLayers = []

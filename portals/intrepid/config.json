@@ -30,5 +30,10 @@
     "showOnlyGranulesCheckbox": false,
     "showNonEosdisCheckbox": false,
     "showTophat": false
+  },
+  "home":{
+    "longitude": 140,
+    "latitude": -38,
+    "zoom": 5
   }
 }
