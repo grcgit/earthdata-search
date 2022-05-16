@@ -12,7 +12,11 @@ const Config = merge.smartStrategy(
   mode: 'development',
   devtool: 'inline-cheap-module-source-map',
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    public: 'jet2.intrepid-geophyics.com',
+    allowedHosts: [
+      '0.0.0.0',
+    ],
   },
   module: {
     rules: [
