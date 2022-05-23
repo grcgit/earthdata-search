@@ -72,13 +72,40 @@ const GranulePlotter = (props) => {
             keys.forEach(key => {
                 if (collectionGranules[key].browseUrl){
                     let localimageSrc = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${collectionGranules[key].id}?h=512&w=512`
-                    let boundstext = collectionGranules[key].boxes[0].split(" ")
-                    let lat1 = parseFloat(boundstext[0])
-                    let lon1 = parseFloat(boundstext[1])
-                    let lat2 = parseFloat(boundstext[2])
-                    let lon2 = parseFloat(boundstext[3])
-                    let bounds = new L.LatLngBounds([lat1, lon1], [lat2, lon2])
-                    overlays.push(<ImageOverlay url={localimageSrc} bounds={bounds} opacity={0.5} zIndex={10} />)
+                    if(collectionGranules[key].boxes){
+                        if(collectionGranules[key].boxes.length > 0){
+                            let boundstext = collectionGranules[key].boxes[0].split(" ")
+                            let lat1 = parseFloat(boundstext[0])
+                            let lon1 = parseFloat(boundstext[1])
+                            let lat2 = parseFloat(boundstext[2])
+                            let lon2 = parseFloat(boundstext[3])
+                            let bounds = new L.LatLngBounds([lat1, lon1], [lat2, lon2])
+                            overlays.push(<ImageOverlay url={localimageSrc} bounds={bounds} opacity={0.5} zIndex={10} />)
+                        }
+                    }else if (collectionGranules[key].polygons){
+                        if (collectionGranules[key].polygons.length > 0){
+                            //need to get bounds from polygon points
+                            let latmin = 90
+                            let latmax = -90
+                            let lonmin = 180
+                            let lonmax = -180
+                            collectionGranules[key].polygons.forEach( function(poly) {
+                                let polytext = poly[0].split(" ")
+                                for(let i = 0; i < polytext.length; i=i+2){
+                                    let lat = parseFloat(polytext[i])
+                                    if(lat < latmin) latmin = lat
+                                    if(lat > latmax) latmax = lat
+                                }
+                                for(let i = 1; i < polytext.length; i=i+2){
+                                    let lon = parseFloat(polytext[i])
+                                    if(lon < lonmin) lonmin = lon
+                                    if(lon > lonmax) lonmax = lon
+                                }
+                            })
+                            let bounds = new L.LatLngBounds([latmax, lonmin], [latmin, lonmax])
+                            overlays.push(<ImageOverlay url={localimageSrc} bounds={bounds} opacity={0.5} zIndex={10} />)
+                        }
+                    }
                 }
             });
         }

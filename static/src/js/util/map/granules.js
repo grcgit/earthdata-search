@@ -29,6 +29,12 @@ export function isClockwiseLatLng(path) {
 export function addPath(ctx, path) {
   let { poly } = path
   const { line } = path
+  const {point} = path
+
+  if(point){
+    ctx.fillRect(point.x - 2,point.y - 2,4,4);
+    return
+  }
 
   if ((poly != null) || (line != null)) {
     if (poly == null) { poly = line }

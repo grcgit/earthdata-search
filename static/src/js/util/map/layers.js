@@ -106,8 +106,10 @@ export const buildLayer = (options, metadata) => {
   const cartesian = isCartesian(metadata)
 
   if (points.length) {
+    let points_options = options
+    points_options.weight = 3
     castArray(points).forEach((point) => {
-      layer.addLayer(L.circleMarker(point, options))
+      layer.addLayer(L.circle(point, points_options))
     })
   }
 

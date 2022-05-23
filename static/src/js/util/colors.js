@@ -3,7 +3,8 @@ export const colors = {
   blue: '#3498DB',
   orange: '#E67E22',
   red: '#E74C3C',
-  purple: '#9B59B6'
+  purple: '#9B59B6',
+  pink: '#FF007F'
 }
 
 export const lightColors = {
@@ -11,7 +12,8 @@ export const lightColors = {
   blue: 'rgb(52, 152, 219, 0.5)',
   orange: 'rgb(230, 126, 34, 0.5)',
   red: 'rgb(231, 76, 60, 0.5)',
-  purple: 'rgb(155, 89, 182, 0.5)'
+  purple: 'rgb(155, 89, 182, 0.5)',
+  pink: 'rgb(255,0,127,0.5)'
 }
 
 /**

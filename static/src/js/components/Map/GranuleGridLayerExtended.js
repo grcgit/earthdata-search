@@ -25,6 +25,8 @@ import {
   getRectangles
 } from '../../util/map/layers'
 
+import { colors,lightColors,getColorByIndex } from '../../util/colors'
+
 import { dividePolygon } from '../../util/map/geo'
 import { eventEmitter } from '../../events/events'
 import { getTemporal } from '../../util/edscDate'
@@ -458,7 +460,20 @@ export class GranuleGridLayerExtended extends L.GridLayer {
 
     paths.forEach((path) => {
       // Faint stroke of whole path
-      ctx.strokeStyle = 'rgba(128, 128, 128, .2)'
+      //ctx.strokeStyle = 'rgba(128, 128, 128, .2)'
+
+      ctx.strokeStyle = lightColors.green
+      ctx.fillStyle = lightColors.green
+
+      // if (path.poly != null) {
+      //   ctx.strokeStyle = lightColors.blue
+      // }
+
+      // if (path.point != null) {
+      //   ctx.strokeStyle = colors.green
+      //   ctx.fillStyle = colors.green
+      // }
+
       ctx.beginPath()
       addPath(ctx, path)
       ctx.stroke()
@@ -1058,7 +1073,7 @@ export class GranuleGridLayerExtended extends L.GridLayer {
   _focusLayer(granule) {
     if (granule == null) return null
     return buildLayer({
-      clickable: false, color: this.color, fillColor: this.color, opacity: 1
+      clickable: false, color: colors.pink, fillColor: lightColors.pink, opacity: 1, radius: 1, weight: 1
     }, granule)
   }
 
@@ -1071,7 +1086,8 @@ export class GranuleGridLayerExtended extends L.GridLayer {
       clickable: false,
       color: this.color,
       fillColor: this.color,
-      opacity: 1
+      opacity: 1,
+      weight: 1
     }, granule)
 
     const temporal = getTemporal(granule.timeStart, granule.timeEnd)
