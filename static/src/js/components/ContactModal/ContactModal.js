@@ -82,8 +82,8 @@ class ContactModal extends Component {
                 </Form.Group>
             </div>
             <div className='modal-button-d'>
-              <button className='modal-button-request' onClick={this.requestData}>Request Data</button>
-              <button className='modal-button-cancel' onClick={this.props.closeCallback}>Close</button>
+              <button className='modal-button-request modal-button' onClick={this.requestData}>Request Data</button>
+              <button className='modal-button-cancel modal-button' onClick={this.props.closeCallback}>Close</button>
             </div>
           </section>
         </div>
