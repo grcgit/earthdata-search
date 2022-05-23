@@ -752,7 +752,9 @@ export class GranuleGridLayerExtended extends L.GridLayer {
       return granule.orbit
     })
 
-    this.addIntersections(result, getRectangles(granule), tileBounds, 'poly', 'cartesian')
+    if(granule.browseURL == null && granule.polygons == null){
+      this.addIntersections(result, getRectangles(granule), tileBounds, 'poly', 'cartesian')
+    }
     this.addIntersections(result, getLines(granule), tileBounds, 'line', interpolation)
 
     Array.from(getPoints(granule)).forEach((point) => {
