@@ -59,7 +59,7 @@ export const GranuleResultsTable = ({
       Cell: GranuleResultsTableHeaderCell,
       accessor: 'title',
       sticky: 'left',
-      width: '325',
+      width: '350',
       customProps: {
         cellClassName: 'granule-results-table__cell--granule',
         collectionId,

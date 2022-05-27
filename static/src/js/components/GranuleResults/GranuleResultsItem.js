@@ -20,6 +20,8 @@ import EDSCIcon from '../EDSCIcon/EDSCIcon'
 
 import './GranuleResultsItem.scss'
 
+import GranuleShowHideButton from './GranuleShowHideButton'
+
 const thumbnailHeight = getApplicationConfig().thumbnailSize.height
 const thumbnailWidth = getApplicationConfig().thumbnailSize.width
 
@@ -277,6 +279,9 @@ const GranuleResultsItem = forwardRef(({
                   />
                 )
               }
+              <GranuleShowHideButton
+                granuleId={id}
+              ></GranuleShowHideButton>
             </div>
           </div>
         </div>

@@ -7,7 +7,9 @@ import {
   UPDATE_COLLECTION_QUERY,
   UPDATE_GRANULE_FILTERS,
   UPDATE_GRANULE_SEARCH_QUERY,
-  UPDATE_REGION_QUERY
+  UPDATE_REGION_QUERY,
+  TOGGLE_GRANULE_VISIBILITY,
+  CLEAR_GRANULE_VISIBILITY
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -22,6 +24,9 @@ const initialState = {
   },
   region: {
     exact: false
+  },
+  granuleVisiblity:{
+    hiddenGranules: []
   }
 }
 
@@ -40,6 +45,37 @@ const queryReducer = (state = initialState, action) => {
         collection: {
           ...state.collection,
           ...action.payload
+        }
+      }
+    }
+    case CLEAR_GRANULE_VISIBILITY:{
+      const { granuleVisiblity = {} } = state
+      return{
+        ...state,
+        granuleVisiblity:{
+          hiddenGranules: []
+        }
+      }
+    }
+    case TOGGLE_GRANULE_VISIBILITY: {
+      const granuleId = action.payload
+
+      const { granuleVisiblity = {} } = state
+
+      if(granuleVisiblity.hiddenGranules.includes(granuleId)){
+        const newHiddenGranules = granuleVisiblity.hiddenGranules.filter(granule => granule !== granuleId)
+        return {
+          ...state,
+          granuleVisiblity:{
+            hiddenGranules: newHiddenGranules
+          }
+        }
+      }else{
+        return {
+          ...state,
+          granuleVisiblity:{
+            hiddenGranules: [...granuleVisiblity.hiddenGranules, granuleId]
+          }
         }
       }
     }

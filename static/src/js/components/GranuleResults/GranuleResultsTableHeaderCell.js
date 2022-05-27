@@ -16,6 +16,7 @@ import Button from '../Button/Button'
 import MoreActionsDropdown from '../MoreActionsDropdown/MoreActionsDropdown'
 import MoreActionsDropdownItem from '../MoreActionsDropdown/MoreActionsDropdownItem'
 import PortalFeatureContainer from '../../containers/PortalFeatureContainer/PortalFeatureContainer'
+import GranuleShowHideButton from './GranuleShowHideButton'
 
 const GranuleResultsTableHeaderCell = (props) => {
   const { column, cell, row } = props
@@ -150,6 +151,9 @@ const GranuleResultsTableHeaderCell = (props) => {
             }}
           />
         </MoreActionsDropdown>
+        <GranuleShowHideButton
+          granuleId={id}
+        ></GranuleShowHideButton>
       </div>
     </>
   )

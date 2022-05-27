@@ -34,7 +34,9 @@ import {
   UPDATE_GRANULE_LINKS,
   UPDATE_GRANULE_METADATA,
   UPDATE_GRANULE_RESULTS,
-  INITIALIZE_COLLECTION_GRANULES_QUERY
+  INITIALIZE_COLLECTION_GRANULES_QUERY,
+  TOGGLE_GRANULE_VISIBILITY,
+  CLEAR_GRANULE_VISIBILITY
 } from '../constants/actionTypes'
 import { mbr } from '../util/map/mbr'
 import { prepareGranuleAccessParams } from '../../../../sharedUtils/prepareGranuleAccessParams'
@@ -141,6 +143,16 @@ export const initializeCollectionGranulesResults = payload => ({
 
 export const initializeCollectionGranulesQuery = payload => ({
   type: INITIALIZE_COLLECTION_GRANULES_QUERY,
+  payload
+})
+
+export const toggleGranuleVisibilty = payload => ({
+  type: TOGGLE_GRANULE_VISIBILITY,
+  payload
+})
+
+export const clearGranuleVisibilty = payload => ({
+  type: CLEAR_GRANULE_VISIBILITY,
   payload
 })
 

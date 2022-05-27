@@ -36,7 +36,9 @@ import {
   onExcludeGranule,
   undoExcludeGranule,
   updateGranuleMetadata,
-  updateGranuleResults
+  updateGranuleResults,
+  toggleGranuleVisibilty,
+  clearGranuleVisibilty
 } from './granules'
 import {
   logout,
@@ -214,6 +216,7 @@ const actions = {
   clearAutocompleteSuggestions,
   clearFocusedCollectionGranuleFilters,
   clearGranuleFilters,
+  clearGranuleVisibilty,
   clearFilters,
   clearShapefile,
   collectionRelevancyMetrics,
@@ -286,6 +289,7 @@ const actions = {
   toggleCollectionVisibility,
   toggleDrawingNewLayer,
   toggleFacetsModal,
+  toggleGranuleVisibilty,
   toggleContactModal,
   toggleKeyboardShortcutsModal,
   toggleOverrideTemporalModal,

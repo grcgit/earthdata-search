@@ -84,7 +84,8 @@ export const mapStateToProps = state => ({
   mapPreferences: getMapPreferences(state),
   project: state.project,
   router: state.router,
-  shapefile: state.shapefile
+  shapefile: state.shapefile,
+  hiddenGranules: state.query.granuleVisiblity.hiddenGranules
 })
 
 export class MapContainer extends Component {
@@ -254,7 +255,8 @@ export class MapContainer extends Component {
       onShapefileErrored,
       onMetricsMap,
       onToggleTooManyPointsModal,
-      onUpdateShapefile
+      onUpdateShapefile,
+      hiddenGranules
     } = this.props
 
     const { location } = router
@@ -330,6 +332,7 @@ export class MapContainer extends Component {
         })
       } else {
         granuleIds = difference(allGranuleIds, excludedGranuleIds)
+        granuleIds = difference(allGranuleIds, hiddenGranules)
       }
 
       nonExcludedGranules = { byId: {} }

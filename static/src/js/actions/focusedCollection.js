@@ -433,4 +433,6 @@ export const viewCollectionGranules = collectionId => (dispatch, getState) => {
     pathname: `${portalPathFromState(getState())}/search/granules`,
     search
   }))
+
+  dispatch(actions.clearGranuleVisibilty())
 }
