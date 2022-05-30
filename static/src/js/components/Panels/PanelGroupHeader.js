@@ -19,6 +19,7 @@ import RadioSettingDropdown from '../RadioSettingDropdown/RadioSettingDropdown'
 import Skeleton from '../Skeleton/Skeleton'
 
 import './PanelGroupHeader.scss'
+import GranuleShowHideAll from '../GranuleResults/GranuleShowHideAll'
 
 /**
  * Renders PanelGroupHeader.
@@ -283,7 +284,11 @@ export const PanelGroupHeader = ({
               (exportsArray.length > 0 || sortsArray.length > 0 || viewsArray.length > 0) && (
                 <nav className="panel-group-header__heading-meta-secondary">
                   {
-                    exportsArray.length > 0 && (
+                    <GranuleShowHideAll
+                    ></GranuleShowHideAll>
+                  }
+                  {
+                    false && exportsArray.length > 0 && (
                       <RadioSettingDropdown
                         id={`panel-group-header-dropdown__export__${panelGroupId}`}
                         className="panel-group-header__setting-dropdown"

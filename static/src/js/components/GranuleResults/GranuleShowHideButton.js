@@ -10,7 +10,7 @@ import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import './GranuleResultsDataLinksButton.scss'
 
 const mapDispatchToProps = dispatch => ({
-    onToggleGranuleVisibilty:
+    onToggleGranuleVisibility:
       payload => dispatch(actions.toggleGranuleVisibilty(payload))
   })
   
@@ -21,12 +21,12 @@ const mapStateToProps = state => ({
 export const GranuleShowHideButton = (props) => {
   const {
     granuleId,
-    onToggleGranuleVisibilty,
+    onToggleGranuleVisibility,
     hiddenGranules
   } = props
 
   const toggleVisibility = () => {
-    onToggleGranuleVisibilty(granuleId)
+    onToggleGranuleVisibility(granuleId)
   }
 
   const hidden = () => {
@@ -36,19 +36,19 @@ export const GranuleShowHideButton = (props) => {
   let label
   let icon
   if(hidden()){
-      label = "Show"
-      icon = FaEye
+    label = "Show"
+    icon = FaEye
   }else{
-      label = "Hide"
-      icon = FaEyeSlash
+    label = "Hide"
+    icon = FaEyeSlash
   }
 
   return (
     <Button
-        className="button granule-results-data-links-button__button"
-        icon={icon}
-        onClick={toggleVisibility}
-        label={label}
+      className="button granule-results-data-links-button__button"
+      icon={icon}
+      onClick={toggleVisibility}
+      label={label}
     />
   )
 }
