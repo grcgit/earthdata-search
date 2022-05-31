@@ -6,6 +6,21 @@ import { eventEmitter } from '../../events/events'
 
 import LoggerRequest from '../../util/request/loggerRequest'
 
+import { getApplicationConfig } from '../../../../../sharedUtils/config'
+
+const { getPortalConfig } = require('../../util/portals')
+
+const {
+  defaultPortal,
+} = getApplicationConfig()
+
+const portalConfig = getPortalConfig(defaultPortal)
+
+var supportEmail = "support@email.com"
+
+if(portalConfig.supportEmail){
+  supportEmail = portalConfig.supportEmail
+}
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props)
@@ -50,9 +65,12 @@ class ErrorBoundary extends Component {
     const { errorGuid, hasError } = this.state
     const { children } = this.props
 
+    const mailTo = `mailto:${supportEmail}`
+
     if (hasError) {
       return (
-        <div className="wrap">
+        // <div className="wrap">
+        <div>
           <h1>
             We&#39;re sorry, but something went wrong.
           </h1>
@@ -65,7 +83,7 @@ class ErrorBoundary extends Component {
             {' '}
             when contacting
             {' '}
-            <a href="mailto:support@earthdata.nasa.gov">Earthdata Operations</a>
+            <a href={mailTo}>Support</a>
             .
           </p>
           <p>
