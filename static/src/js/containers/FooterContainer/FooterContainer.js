@@ -112,16 +112,20 @@ export class FooterContainer extends Component {
         <TimelineContainer />
         <footer className="footer">
           <span className="footer__info footer__info--left">
-            <span className="footer__ver-pill">
-              {
-                edscEnv !== 'prod' && (
-                  <span className={pillClassNames}>
-                    {edscEnv.toUpperCase()}
-                  </span>
-                )
-              }
-              {version()}
-            </span>
+            {
+              false && (
+                <span className="footer__ver-pill">
+                  {
+                    edscEnv !== 'prod' && (
+                      <span className={pillClassNames}>
+                        {edscEnv.toUpperCase()}
+                      </span>
+                    )
+                  }
+                  {version()}
+                </span>
+              )
+            }
             {searchTime()}
             {attribution()}
             {primaryLinks()}
