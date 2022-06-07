@@ -142,9 +142,9 @@ const Facets = (props) => {
     instrumentsFacet,
     organizationsFacet,
     projectsTemplate,
-    processingLevels,
+    //processingLevels,
     formats,
-    tilingSystem,
+    //tilingSystem,
     horizontalDataResolution
   ]
 
