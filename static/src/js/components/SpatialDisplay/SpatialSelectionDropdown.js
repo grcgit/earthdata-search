@@ -64,6 +64,9 @@ export class SpatialSelectionDropdown extends PureComponent {
           className="spatial-selection-dropdown__button search-form__button search-form__button--dark"
         >
           <EDSCIcon className="spatial-selection-dropdown__icon" icon={FaCrop} size="0.825rem" />
+          <d className="padding-style">
+            Spatial Filter
+          </d>
         </Dropdown.Toggle>
         <Dropdown.Menu className="spatial-selection-dropdown__menu">
           <Dropdown.Item

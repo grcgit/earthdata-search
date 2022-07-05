@@ -5,6 +5,8 @@ import { FaCalendarAlt } from 'react-icons/fa'
 
 import EDSCIcon from '../EDSCIcon/EDSCIcon'
 
+import './TemporalSelectionDropdownToggle.scss'
+
 const TemporalSelectionDropdownToggle = ({ onToggleClick }) => (
   <Dropdown.Toggle
     variant="inline-block"
@@ -13,6 +15,9 @@ const TemporalSelectionDropdownToggle = ({ onToggleClick }) => (
     onClick={onToggleClick}
   >
     <EDSCIcon icon={FaCalendarAlt} size="0.825rem" />
+    <d className="padding-style">
+      Temporal Filter
+    </d>
   </Dropdown.Toggle>
 )
 
