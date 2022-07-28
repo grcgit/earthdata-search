@@ -12,7 +12,7 @@ export const getLambdaConfig = () => {
     return {
       ...productionConfig,
       region: 'us-east-1',
-      endpoint: 'http://localhost:3001'
+      endpoint: 'http://localhost:3021'
     }
   }
 
