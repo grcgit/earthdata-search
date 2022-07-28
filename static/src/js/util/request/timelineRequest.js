@@ -14,11 +14,14 @@ export default class TimelineRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'granules/timeline'
     } else {
-      //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
-      const domain = window.location.origin.split(':')
-      let cmrdomain = 'http:' + domain[1] + ':3003' 
-      super(cmrdomain, earthdataEnvironment)
-
+      const { remoteCMR } = getApplicationConfig()
+      if(remoteCMR){
+        super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      }else{
+        const domain = window.location.origin.split(':')
+        let cmrdomain = 'http:' + domain[1] + ':3003' 
+        super(cmrdomain, earthdataEnvironment)
+      }
       this.searchPath = 'granules/timeline'
     }
   }

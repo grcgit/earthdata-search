@@ -23,11 +23,14 @@ export default class CollectionRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'collections'
     } else {
-      //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
-      const domain = window.location.origin.split(':')
-      let cmrdomain = 'http:' + domain[1] + ':3003' 
-      super(cmrdomain, earthdataEnvironment)
-
+      const { remoteCMR } = getApplicationConfig()
+      if(remoteCMR){
+        super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      }else{
+        const domain = window.location.origin.split(':')
+        let cmrdomain = 'http:' + domain[1] + ':3003' 
+        super(cmrdomain, earthdataEnvironment)
+      }
       // We do not define an extension here. It will be added in the search method.
       this.searchPath = 'collections.json'
     }
