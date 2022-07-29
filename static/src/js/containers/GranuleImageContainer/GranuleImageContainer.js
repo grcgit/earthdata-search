@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { getEarthdataConfig } from '../../../../../sharedUtils/config'
 import { getEarthdataEnvironment } from '../../selectors/earthdataEnvironment'
 import { getFocusedGranuleId } from '../../selectors/focusedGranule'
 import { getFocusedGranuleMetadata } from '../../selectors/granuleMetadata'
@@ -18,7 +17,6 @@ export const mapStateToProps = state => ({
 })
 
 export const GranuleImageContainer = ({
-  earthdataEnvironment,
   focusedGranuleId,
   granuleMetadata
 }) => {
@@ -31,9 +29,9 @@ export const GranuleImageContainer = ({
 
     const { secureDDS } = getApplicationConfig()
 
-    var protocol = "http"
-    if(secureDDS){
-      protocol = "https"
+    let protocol = 'http'
+    if (secureDDS) {
+      protocol = 'https'
     }
     imageSrc = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${focusedGranuleId}?h=512&w=512`
   }
@@ -44,7 +42,6 @@ export const GranuleImageContainer = ({
 }
 
 GranuleImageContainer.propTypes = {
-  earthdataEnvironment: PropTypes.string.isRequired,
   focusedGranuleId: PropTypes.string.isRequired,
   granuleMetadata: PropTypes.shape({}).isRequired
 }

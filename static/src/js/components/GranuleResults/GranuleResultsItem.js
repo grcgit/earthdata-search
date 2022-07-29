@@ -279,9 +279,7 @@ const GranuleResultsItem = forwardRef(({
                   />
                 )
               }
-              <GranuleShowHideButton
-                granuleId={id}
-              ></GranuleShowHideButton>
+              <GranuleShowHideButton granuleId={id} />
             </div>
           </div>
         </div>

@@ -85,6 +85,7 @@ export default class Request {
       headers.Authorization = `Bearer ${this.getAuthToken()}`
     }
 
+    // eslint-disable-next-line no-param-reassign
     headers['Echo-Token'] = 'mock-echo-system-token'
 
     if (data) {

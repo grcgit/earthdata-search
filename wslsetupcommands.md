@@ -23,3 +23,6 @@ cp static.config.json overrideStatic.config.json
 
 - Run frontend
 npm run start
+
+- Run Serverless backend
+serverless offline

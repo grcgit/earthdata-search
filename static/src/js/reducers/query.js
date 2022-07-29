@@ -25,7 +25,7 @@ const initialState = {
   region: {
     exact: false
   },
-  granuleVisiblity:{
+  granuleVisiblity: {
     hiddenGranules: []
   }
 }
@@ -48,11 +48,10 @@ const queryReducer = (state = initialState, action) => {
         }
       }
     }
-    case CLEAR_GRANULE_VISIBILITY:{
-      const { granuleVisiblity = {} } = state
-      return{
+    case CLEAR_GRANULE_VISIBILITY: {
+      return {
         ...state,
-        granuleVisiblity:{
+        granuleVisiblity: {
           hiddenGranules: []
         }
       }
@@ -62,20 +61,19 @@ const queryReducer = (state = initialState, action) => {
 
       const { granuleVisiblity = {} } = state
 
-      if(granuleVisiblity.hiddenGranules.includes(granuleId)){
+      if (granuleVisiblity.hiddenGranules.includes(granuleId)) {
         const newHiddenGranules = granuleVisiblity.hiddenGranules.filter(granule => granule !== granuleId)
         return {
           ...state,
-          granuleVisiblity:{
+          granuleVisiblity: {
             hiddenGranules: newHiddenGranules
           }
         }
-      }else{
-        return {
-          ...state,
-          granuleVisiblity:{
-            hiddenGranules: [...granuleVisiblity.hiddenGranules, granuleId]
-          }
+      }
+      return {
+        ...state,
+        granuleVisiblity: {
+          hiddenGranules: [...granuleVisiblity.hiddenGranules, granuleId]
         }
       }
     }

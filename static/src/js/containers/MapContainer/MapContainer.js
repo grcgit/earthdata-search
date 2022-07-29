@@ -33,7 +33,6 @@ import ConnectedSpatialSelectionContainer from '../SpatialSelectionContainer/Spa
 import GranuleGridLayer from '../../components/Map/GranuleGridLayer'
 import GranuleImageContainer from '../GranuleImageContainer/GranuleImageContainer'
 import LayerBuilder from '../../components/Map/LayerBuilder'
-import LayerBuilderOpen from '../../components/Map/LayerBuilderOpen'
 import MouseEventsLayer from '../../components/Map/MouseEventsLayer'
 import ProjectionSwitcher from '../../components/Map/ProjectionSwitcher'
 import ShapefileLayer from '../../components/Map/ShapefileLayer'
@@ -50,7 +49,7 @@ import { getApplicationConfig } from '../../../../../sharedUtils/config'
 const { getPortalConfig } = require('../../util/portals')
 
 const {
-  defaultPortal,
+  defaultPortal
 } = getApplicationConfig()
 
 const portalConfig = getPortalConfig(defaultPortal)
@@ -290,16 +289,16 @@ export class MapContainer extends Component {
         zoom
       } = mapPreferences)
 
-      if(portalConfig.home.latitude){
-        latitude = portalConfig.home.latitude
+      if (portalConfig.home.latitude) {
+        ({ home: { latitude } } = portalConfig)
       }
-      if(portalConfig.home.longitude){
-        longitude = portalConfig.home.longitude
+      if (portalConfig.home.longitude) {
+        ({ home: { longitude } } = portalConfig)
       }
-      if(portalConfig.home.zoom){
-        zoom = portalConfig.home.zoom
+      if (portalConfig.home.zoom) {
+        ({ home: { zoom } } = portalConfig)
       }
-      
+
       const {
         baseLayer,
         overlayLayers = []
@@ -316,8 +315,8 @@ export class MapContainer extends Component {
 
     const center = [latitude, longitude]
 
-    const maxZoom = projection === projections.geographic ? 10 : 4 //zoomlevel
-    const maxNativeZoom = projection === projections.geographic ? 7 : 4 //zoomlevel
+    const maxZoom = projection === projections.geographic ? 10 : 4 // zoomlevel
+    const maxNativeZoom = projection === projections.geographic ? 7 : 4 // zoomlevel
 
     let nonExcludedGranules
     if (focusedCollectionId && granuleSearchResults) {
@@ -472,12 +471,12 @@ export class MapContainer extends Component {
         />
         <GranuleImageContainer />
         <GranulePlotter
-        collectionsMetadata={collectionsMetadata}
-        focusedCollectionId={focusedCollectionId}
-        granules={nonExcludedGranules}
-        granulesMetadata={granulesMetadata}
-        isProjectPage={isProjectPage}
-        project={project}
+          collectionsMetadata={collectionsMetadata}
+          focusedCollectionId={focusedCollectionId}
+          granules={nonExcludedGranules}
+          granulesMetadata={granulesMetadata}
+          isProjectPage={isProjectPage}
+          project={project}
         />
       </Map>
     )
@@ -512,7 +511,8 @@ MapContainer.propTypes = {
   onShapefileErrored: PropTypes.func.isRequired,
   onMetricsMap: PropTypes.func.isRequired,
   onToggleTooManyPointsModal: PropTypes.func.isRequired,
-  onUpdateShapefile: PropTypes.func.isRequired
+  onUpdateShapefile: PropTypes.func.isRequired,
+  hiddenGranules: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapContainer)

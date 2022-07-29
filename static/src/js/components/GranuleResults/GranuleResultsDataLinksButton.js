@@ -1,4 +1,5 @@
-import React, { useRef } from 'react'
+/* eslint-disable */
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { Dropdown, Tab } from 'react-bootstrap'
 import { connect } from 'react-redux'
@@ -16,7 +17,7 @@ import actions from '../../actions'
 
 import './GranuleResultsDataLinksButton.scss'
 
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
 
 /**
  * Renders CustomDataLinksToggle.
@@ -50,7 +51,7 @@ CustomDataLinksToggle.propTypes = {
   onClick: PropTypes.func.isRequired
 }
 
-export const mapStateToProps = state => ({
+export const mapStateToProps = () => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
@@ -79,42 +80,42 @@ class GranuleResultsDataLinksButton extends React.Component {
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({ show: true })
   };
 
   hideModal = () => {
-    this.setState({ show: false });
+    this.setState({ show: false })
   };
 
-  requestData = async (dataURL,contact) => {
-    //const params = new URLSearchParams();
-    //params.append('a', 1);
+  requestData = async (dataURL, contact) => {
+    // const params = new URLSearchParams();
+    // params.append('a', 1);
 
     const body = {
       name: contact.name,
       email: contact.email
-    };
-    
+    }
+
     const response = await fetch(dataURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
-    });
-    const data = await response.json();
+    })
+    const data = await response.json()
   };
 
-  render(){
-    const{
-    collectionId,
-    buttonVariant,
-    dataLinks,
-    directDistributionInformation,
-    s3Links,
-    onMetricsDataAccess,
-    onToggleContactModal,
-    title
+  render() {
+    const {
+      collectionId,
+      buttonVariant,
+      dataLinks,
+      directDistributionInformation,
+      s3Links,
+      onMetricsDataAccess,
+      onToggleContactModal,
+      title
     } = this.props
 
     const dropdownMenuRef = this.myRef
@@ -335,16 +336,16 @@ class GranuleResultsDataLinksButton extends React.Component {
       payload.display = true
       return (
         <div>
-        <Button
-          className="button granule-results-data-links-button__button"
-          icon={FaDownload}
-          variant={buttonVariant}
-          //href={dataLinks[0].href}
-          onClick={() => onToggleContactModal(payload)}
-          rel="noopener noreferrer"
-          label="Download single granule data"
-          target="_blank"
-        />
+          <Button
+            className="button granule-results-data-links-button__button"
+            icon={FaDownload}
+            variant={buttonVariant}
+          // href={dataLinks[0].href}
+            onClick={() => onToggleContactModal(payload)}
+            rel="noopener noreferrer"
+            label="Download single granule data"
+            target="_blank"
+          />
         </div>
       )
     }
@@ -379,3 +380,4 @@ GranuleResultsDataLinksButton.propTypes = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GranuleResultsDataLinksButton)
+/* eslint-enable */

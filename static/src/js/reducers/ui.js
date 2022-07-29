@@ -25,8 +25,8 @@ const initialState = {
   },
   contactModal: {
     isOpen: false,
-    URL: "",
-    name: ""
+    URL: '',
+    name: ''
   },
   facetsModal: {
     isOpen: false

@@ -40,11 +40,9 @@ const dropzoneOptions = {
 }
 
 export const ShapefileDropzoneContainer = ({
-  authToken,
   onRemoveSpatialFilter,
   onShapefileErrored,
   onShapefileLoading,
-  onSaveShapefile,
   onToggleShapefileUploadModal
 }) => (
   <ShapefileDropzone
@@ -57,9 +55,6 @@ export const ShapefileDropzoneContainer = ({
       onShapefileLoading(file)
     }}
     onSuccess={(file, resp, dropzoneEl) => {
-      const { name, size } = file
-      const fileSize = dropzoneEl.filesize(size).replace(/<{1}[^<>]{1,}>{1}/g, '')
-
       dropzoneEl.removeFile(file)
 
       eventEmitter.emit('shapefile.success', file, resp)
@@ -89,10 +84,8 @@ export const ShapefileDropzoneContainer = ({
 )
 
 ShapefileDropzoneContainer.propTypes = {
-  authToken: PropTypes.string.isRequired,
   onShapefileErrored: PropTypes.func.isRequired,
   onShapefileLoading: PropTypes.func.isRequired,
-  onSaveShapefile: PropTypes.func.isRequired,
   onRemoveSpatialFilter: PropTypes.func.isRequired,
   onToggleShapefileUploadModal: PropTypes.func.isRequired
 }

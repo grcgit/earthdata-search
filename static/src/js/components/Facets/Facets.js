@@ -111,11 +111,11 @@ const Facets = (props) => {
     autocompleteType: 'project'
   }
 
-  const processingLevels = {
-    ...cmrFacetDefaults,
-    title: 'Processing Levels',
-    autocompleteType: 'processing_level_id'
-  }
+  // const processingLevels = {
+  //   ...cmrFacetDefaults,
+  //   title: 'Processing Levels',
+  //   autocompleteType: 'processing_level_id'
+  // }
 
   const formats = {
     ...cmrFacetDefaults,
@@ -123,11 +123,11 @@ const Facets = (props) => {
     autocompleteType: 'granule_data_format'
   }
 
-  const tilingSystem = {
-    ...cmrFacetDefaults,
-    title: 'Tiling System',
-    autocompleteType: 'two_d_coordinate_system_name'
-  }
+  // const tilingSystem = {
+  //   ...cmrFacetDefaults,
+  //   title: 'Tiling System',
+  //   autocompleteType: 'two_d_coordinate_system_name'
+  // }
 
   const horizontalDataResolution = {
     ...cmrFacetDefaults,
@@ -142,9 +142,9 @@ const Facets = (props) => {
     instrumentsFacet,
     organizationsFacet,
     projectsTemplate,
-    //processingLevels,
+    // processingLevels,
     formats,
-    //tilingSystem,
+    // tilingSystem,
     horizontalDataResolution
   ]
 

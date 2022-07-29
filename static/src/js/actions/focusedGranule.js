@@ -8,7 +8,7 @@ import { createEcho10MetadataUrls } from '../util/granules'
 import { getEarthdataEnvironment } from '../selectors/earthdataEnvironment'
 import { getFocusedGranuleId } from '../selectors/focusedGranule'
 import { getFocusedGranuleMetadata } from '../selectors/granuleMetadata'
-import { portalPathFromState } from '../../../../sharedUtils/portalPath'
+// import { portalPathFromState } from '../../../../sharedUtils/portalPath'
 
 import GraphQlRequest from '../util/request/graphQlRequest'
 

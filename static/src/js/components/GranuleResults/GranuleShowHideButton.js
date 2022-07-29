@@ -2,20 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
+import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import actions from '../../actions/index'
 import Button from '../Button/Button'
 
-import { FaEyeSlash, FaEye } from 'react-icons/fa'
 
 import './GranuleResultsDataLinksButton.scss'
 
 const mapDispatchToProps = dispatch => ({
-    onToggleGranuleVisibility:
+  onToggleGranuleVisibility:
       payload => dispatch(actions.toggleGranuleVisibilty(payload))
-  })
-  
+})
+
 const mapStateToProps = state => ({
-    hiddenGranules: state.query.granuleVisiblity.hiddenGranules
+  hiddenGranules: state.query.granuleVisiblity.hiddenGranules
 })
 
 export const GranuleShowHideButton = (props) => {
@@ -29,17 +29,15 @@ export const GranuleShowHideButton = (props) => {
     onToggleGranuleVisibility(granuleId)
   }
 
-  const hidden = () => {
-    return hiddenGranules.includes(granuleId)
-  }
+  const hidden = () => hiddenGranules.includes(granuleId)
 
   let label
   let icon
-  if(hidden()){
-    label = "Show"
+  if (hidden()) {
+    label = 'Show'
     icon = FaEye
-  }else{
-    label = "Hide"
+  } else {
+    label = 'Hide'
     icon = FaEyeSlash
   }
 
@@ -54,6 +52,8 @@ export const GranuleShowHideButton = (props) => {
 }
 
 GranuleShowHideButton.propTypes = {
+  onToggleGranuleVisibility: PropTypes.func.isRequired,
+  hiddenGranules: PropTypes.shape({}).isRequired,
   granuleId: PropTypes.string.isRequired
 }
 

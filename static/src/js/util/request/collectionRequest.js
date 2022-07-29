@@ -1,7 +1,6 @@
 import CmrRequest from './cmrRequest'
 import {
   getApplicationConfig,
-  getEarthdataConfig,
   getEnvironmentConfig
 } from '../../../../../sharedUtils/config'
 
@@ -23,9 +22,9 @@ export default class CollectionRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'collections'
     } else {
-      //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      // super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
       const domain = window.location.origin.split(':')
-      let cmrdomain = 'http:' + domain[1] + ':3003' 
+      const cmrdomain = `http:${domain[1]}:3003`
       super(cmrdomain, earthdataEnvironment)
 
       // We do not define an extension here. It will be added in the search method.
@@ -49,7 +48,7 @@ export default class CollectionRequest extends CmrRequest {
       'granule_data_format',
       'granule_data_format_h',
       'has_granules',
-      //'has_granules_or_cwic', // need to sort this out
+      // 'has_granules_or_cwic', // need to sort this out
       'horizontal_data_resolution_range',
       'include_facets',
       'include_granule_counts',
@@ -114,7 +113,7 @@ export default class CollectionRequest extends CmrRequest {
       // eslint-disable-next-line no-param-reassign
       delete params.twoDCoordinateSystem.coordinates
     }
-    //has_granules_or_cwic
+    // has_granules_or_cwic
     return this.post(this.searchPath, params)
   }
 
@@ -166,9 +165,9 @@ export default class CollectionRequest extends CmrRequest {
       if (collection.id) {
         const domain = window.location.origin.split(':')
         const { secureDDS } = getApplicationConfig()
-        var protocol = "http"
-        if(secureDDS){
-          protocol = "https"
+        let protocol = 'http'
+        if (secureDDS) {
+          protocol = 'https'
         }
         transformedCollection.thumbnail = collection.browse_flag
           ? `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`

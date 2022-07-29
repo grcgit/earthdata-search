@@ -1,25 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
 import actions from '../../actions/index'
 import Button from '../Button/Button'
 import { getFocusedCollectionGranuleResults } from '../../selectors/collectionResults'
-import { getGranulesMetadata } from '../../selectors/granuleMetadata'
 
-import { FaEyeSlash, FaEye } from 'react-icons/fa'
 
 import './GranuleResultsDataLinksButton.scss'
 
 const mapDispatchToProps = dispatch => ({
-    onToggleGranuleVisibility:
+  onToggleGranuleVisibility:
       payload => dispatch(actions.toggleGranuleVisibilty(payload)),
-    onClearGranuleVisibility:
+  onClearGranuleVisibility:
       () => dispatch(actions.clearGranuleVisibilty())
-  })
-  
+})
+
 const mapStateToProps = state => ({
-    granuleSearchResults: getFocusedCollectionGranuleResults(state)
+  granuleSearchResults: getFocusedCollectionGranuleResults(state)
 })
 
 export const GranuleShowHideAll = (props) => {
@@ -29,14 +27,14 @@ export const GranuleShowHideAll = (props) => {
     granuleSearchResults
   } = props
 
-  const {allIds} = granuleSearchResults
+  const { allIds } = granuleSearchResults
 
   const showAll = () => {
     onClearGranuleVisibility()
   }
 
   const hideAll = () => {
-    if(allIds){
+    if (allIds) {
       onClearGranuleVisibility()
       allIds.forEach((granuleId) => {
         onToggleGranuleVisibility(granuleId)
@@ -44,7 +42,7 @@ export const GranuleShowHideAll = (props) => {
     }
   }
 
-  if(allIds && allIds.length > 0){
+  if (allIds && allIds.length > 0) {
     return (
       <div>
         <Button
@@ -61,12 +59,14 @@ export const GranuleShowHideAll = (props) => {
         />
       </div>
     )
-  }else{
-    return(<div />)
   }
+  return (<div />)
 }
 
 GranuleShowHideAll.propTypes = {
+  onToggleGranuleVisibility: PropTypes.func.isRequired,
+  onClearGranuleVisibility: PropTypes.func.isRequired,
+  granuleSearchResults: PropTypes.shape({}).isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GranuleShowHideAll)

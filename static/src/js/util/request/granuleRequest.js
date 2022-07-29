@@ -1,7 +1,6 @@
 import CmrRequest from './cmrRequest'
 import {
   getApplicationConfig,
-  getEarthdataConfig,
   getEnvironmentConfig
 } from '../../../../../sharedUtils/config'
 
@@ -19,9 +18,9 @@ export default class GranuleRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'granules'
     } else {
-      //super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      // super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
       const domain = window.location.origin.split(':')
-      let cmrdomain = 'http:' + domain[1] + ':3003' 
+      const cmrdomain = `http:${domain[1]}:3003`
       super(cmrdomain, earthdataEnvironment)
 
       this.searchPath = 'granules.json'
@@ -98,9 +97,9 @@ export default class GranuleRequest extends CmrRequest {
         // eslint-disable-next-line
         const domain = window.location.origin.split(':')
         const { secureDDS } = getApplicationConfig()
-        var protocol = "http"
-        if(secureDDS){
-          protocol = "https"
+        let protocol = 'http'
+        if (secureDDS) {
+          protocol = 'https'
         }
         updatedGranule.thumbnail = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
       }

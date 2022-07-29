@@ -16,7 +16,7 @@ import actions from '.'
 import { autocompleteFacetsMap } from '../util/autocompleteFacetsMap'
 import { buildPromise } from '../util/buildPromise'
 import { getEarthdataEnvironment } from '../selectors/earthdataEnvironment'
-import { handleError } from './errors'
+// import { handleError } from './errors'
 import { scienceKeywordTypes } from '../util/scienceKeywordTypes'
 
 export const onAutocompleteLoaded = payload => ({

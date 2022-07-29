@@ -153,7 +153,7 @@ const GranuleResultsTableHeaderCell = (props) => {
         </MoreActionsDropdown>
         <GranuleShowHideButton
           granuleId={id}
-        ></GranuleShowHideButton>
+        />
       </div>
     </>
   )

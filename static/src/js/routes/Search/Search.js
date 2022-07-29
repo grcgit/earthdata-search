@@ -113,13 +113,17 @@ export const Search = ({
   }
 
   const contactModalPayload = {}
-  contactModalPayload.url = ""
+  contactModalPayload.url = ''
   contactModalPayload.display = false
 
   return (
     <div className="route-wrapper route-wrapper--search search">
-      <ContactModal show={contactModalOpen} closeCallback={()=>onToggleContactModal(contactModalPayload)} url={contactModalURL} name={contactModalName}>
-      </ContactModal>
+      <ContactModal
+        show={contactModalOpen}
+        closeCallback={() => onToggleContactModal(contactModalPayload)}
+        url={contactModalURL}
+        name={contactModalName}
+      />
       <SidebarContainer
         headerChildren={(
           <SearchSidebarHeaderContainer />
@@ -238,7 +242,11 @@ Search.propTypes = {
   collectionQuery: PropTypes.shape({}).isRequired,
   match: PropTypes.shape({}).isRequired,
   onUpdateAdvancedSearch: PropTypes.func.isRequired,
-  onChangeQuery: PropTypes.func.isRequired
+  onChangeQuery: PropTypes.func.isRequired,
+  contactModalOpen: PropTypes.bool.isRequired,
+  onToggleContactModal: PropTypes.func.isRequired,
+  contactModalURL: PropTypes.string.isRequired,
+  contactModalName: PropTypes.string.isRequired
 }
 
 export default withRouter(

@@ -284,8 +284,7 @@ export const PanelGroupHeader = ({
               (exportsArray.length > 0 || sortsArray.length > 0 || viewsArray.length > 0) && (
                 <nav className="panel-group-header__heading-meta-secondary">
                   {
-                    <GranuleShowHideAll
-                    ></GranuleShowHideAll>
+                    <GranuleShowHideAll />
                   }
                   {
                     false && exportsArray.length > 0 && (

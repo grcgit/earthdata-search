@@ -25,7 +25,7 @@ import {
   getRectangles
 } from '../../util/map/layers'
 
-import { colors,lightColors,getColorByIndex } from '../../util/colors'
+import { colors, lightColors } from '../../util/colors'
 
 import { dividePolygon } from '../../util/map/geo'
 import { eventEmitter } from '../../events/events'
@@ -460,7 +460,7 @@ export class GranuleGridLayerExtended extends L.GridLayer {
 
     paths.forEach((path) => {
       // Faint stroke of whole path
-      //ctx.strokeStyle = 'rgba(128, 128, 128, .2)'
+      // ctx.strokeStyle = 'rgba(128, 128, 128, .2)'
 
       ctx.strokeStyle = lightColors.green
       ctx.fillStyle = lightColors.green
@@ -510,7 +510,7 @@ export class GranuleGridLayerExtended extends L.GridLayer {
           ctx.lineWidth = hole.deemphisized ? 1 : 1.5
         }
 
-        if(hole.poly){
+        if (hole.poly) {
           addPath(ctx, { poly: hole.poly.concat().reverse() })
         }
       })
@@ -752,7 +752,7 @@ export class GranuleGridLayerExtended extends L.GridLayer {
       return granule.orbit
     })
 
-    if(granule.browseURL == null && granule.polygons == null){
+    if (granule.browseURL == null && granule.polygons == null) {
       this.addIntersections(result, getRectangles(granule), tileBounds, 'poly', 'cartesian')
     }
     this.addIntersections(result, getLines(granule), tileBounds, 'line', interpolation)

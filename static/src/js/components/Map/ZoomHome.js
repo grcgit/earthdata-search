@@ -80,7 +80,7 @@ class ZoomExtended extends Control.Zoom {
       _zoom: currentZoom
     } = map
     const {
-      maxZoom = 10, //zoomlevel
+      maxZoom = 10,
       minZoom = 0
     } = mapOptions
 

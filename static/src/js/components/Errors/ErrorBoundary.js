@@ -11,15 +11,15 @@ import { getApplicationConfig } from '../../../../../sharedUtils/config'
 const { getPortalConfig } = require('../../util/portals')
 
 const {
-  defaultPortal,
+  defaultPortal
 } = getApplicationConfig()
 
 const portalConfig = getPortalConfig(defaultPortal)
 
-var supportEmail = "support@email.com"
+let supportEmail = 'support@email.com'
 
-if(portalConfig.supportEmail){
-  supportEmail = portalConfig.supportEmail
+if (portalConfig.supportEmail) {
+  ({ supportEmail } = portalConfig)
 }
 class ErrorBoundary extends Component {
   constructor(props) {

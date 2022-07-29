@@ -41,7 +41,7 @@ export const getFocusedCollection = () => async (dispatch, getState) => {
   } = state
 
   // Send the relevency metric event
-  //dispatch(actions.collectionRelevancyMetrics())
+  // dispatch(actions.collectionRelevancyMetrics())
 
   // Retrieve data from Redux using selectors
   const collectionsQuery = getCollectionsQuery(state)
