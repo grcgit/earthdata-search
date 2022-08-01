@@ -76,7 +76,12 @@ const GranulePlotter = (props) => {
               const lat2 = parseFloat(boundstext[2])
               const lon2 = parseFloat(boundstext[3])
               const bounds = new L.LatLngBounds([lat1, lon1], [lat2, lon2])
-              overlays.push(<ImageOverlay url={localimageSrc} bounds={bounds} opacity={0.5} zIndex={10} />)
+              overlays.push(<ImageOverlay
+                url={localimageSrc}
+                bounds={bounds}
+                opacity={0.5}
+                zIndex={10}
+              />)
             }
           } else if (collectionGranules[key].polygons) {
             if (collectionGranules[key].polygons.length > 0) {
@@ -99,7 +104,12 @@ const GranulePlotter = (props) => {
                 }
               })
               const bounds = new L.LatLngBounds([latmax, lonmin], [latmin, lonmax])
-              overlays.push(<ImageOverlay url={localimageSrc} bounds={bounds} opacity={0.5} zIndex={10} />)
+              overlays.push(<ImageOverlay
+                url={localimageSrc}
+                bounds={bounds}
+                opacity={0.5}
+                zIndex={10}
+              />)
             }
           }
         }

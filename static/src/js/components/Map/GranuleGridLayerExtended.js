@@ -1076,7 +1076,12 @@ export class GranuleGridLayerExtended extends L.GridLayer {
   _focusLayer(granule) {
     if (granule == null) return null
     return buildLayer({
-      clickable: false, color: colors.pink, fillColor: lightColors.pink, opacity: 1, radius: 1, weight: 1
+      clickable: false,
+      color: colors.pink,
+      fillColor: lightColors.pink,
+      opacity: 1,
+      radius: 1,
+      weight: 1
     }, granule)
   }
 

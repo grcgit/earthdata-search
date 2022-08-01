@@ -192,7 +192,7 @@ const autocomplete = async (event) => {
     const results = await doSearchRequest({
       jwtToken: getJwtToken(event),
       method: 'get',
-      path: '/search/autocomplete',
+      path: '/autocomplete',
       params: buildParams({
         body,
         permittedCmrKeys,

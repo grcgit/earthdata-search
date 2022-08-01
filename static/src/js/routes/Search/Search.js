@@ -151,7 +151,11 @@ export const Search = ({
               }}
             >
               <div>
-                <p>You can filter granules by their name, location and/or survey date. Click the download icon to request a dataset. Use the visibilty buttons to hide and show individual granules in the map view.</p>
+                <p>
+                  You can filter granules by their name, location and/or survey date.
+                  Click the download icon to request a dataset. Use the visibilty
+                  buttons to hide and show individual granules in the map view.
+                </p>
               </div>
               <GranuleFiltersContainer
                 granuleFiltersNeedsReset={granuleFiltersNeedsReset}
@@ -181,7 +185,11 @@ export const Search = ({
               titleIcon={FaFilter}
             >
               <div>
-                <p>Pick an area on the map and/or relevant catagories to narrow down the search results. You can draw a shape or upload a polygon file. Click on a collection to show its contents in the map view.</p>
+                <p>
+                  Pick an area on the map and/or relevant catagories to narrow down
+                  the search results. You can draw a shape or upload a polygon file.
+                  Click on a collection to show its contents in the map view.
+                </p>
               </div>
               <SidebarFiltersList>
                 <SidebarFiltersItem

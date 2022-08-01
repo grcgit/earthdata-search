@@ -62,7 +62,9 @@ const queryReducer = (state = initialState, action) => {
       const { granuleVisiblity = {} } = state
 
       if (granuleVisiblity.hiddenGranules.includes(granuleId)) {
-        const newHiddenGranules = granuleVisiblity.hiddenGranules.filter(granule => granule !== granuleId)
+        const newHiddenGranules = granuleVisiblity.hiddenGranules.filter(
+          granule => granule !== granuleId
+        )
         return {
           ...state,
           granuleVisiblity: {
