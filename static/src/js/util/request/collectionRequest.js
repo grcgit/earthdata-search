@@ -1,7 +1,8 @@
 import CmrRequest from './cmrRequest'
 import {
   getApplicationConfig,
-  getEnvironmentConfig
+  getEnvironmentConfig,
+  getEarthdataConfig
 } from '../../../../../sharedUtils/config'
 
 import { hasTag } from '../../../../../sharedUtils/tags'
@@ -22,13 +23,13 @@ export default class CollectionRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'collections'
     } else {
-      // super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
-      const domain = window.location.origin.split(':')
-      const cmrdomain = `http:${domain[1]}:3003`
-      super(cmrdomain, earthdataEnvironment)
+      super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      // const domain = window.location.origin.split(':')
+      // const cmrdomain = `http:${domain[1]}:3003`
+      // super(cmrdomain, earthdataEnvironment)
 
       // We do not define an extension here. It will be added in the search method.
-      this.searchPath = 'collections.json'
+      this.searchPath = 'search/collections.json'
     }
   }
 

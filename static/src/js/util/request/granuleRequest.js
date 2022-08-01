@@ -1,7 +1,8 @@
 import CmrRequest from './cmrRequest'
 import {
   getApplicationConfig,
-  getEnvironmentConfig
+  getEnvironmentConfig,
+  getEarthdataConfig
 } from '../../../../../sharedUtils/config'
 
 import { getTemporal } from '../edscDate'
@@ -18,12 +19,12 @@ export default class GranuleRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'granules'
     } else {
-      // super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
-      const domain = window.location.origin.split(':')
-      const cmrdomain = `http:${domain[1]}:3003`
-      super(cmrdomain, earthdataEnvironment)
+      super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      // const domain = window.location.origin.split(':')
+      // const cmrdomain = `http:${domain[1]}:3003`
+      // super(cmrdomain, earthdataEnvironment)
 
-      this.searchPath = 'granules.json'
+      this.searchPath = 'search/granules.json'
     }
   }
 

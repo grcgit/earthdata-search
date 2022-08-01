@@ -1,6 +1,6 @@
 import CmrRequest from './cmrRequest'
 
-import { getEnvironmentConfig } from '../../../../../sharedUtils/config'
+import { getEnvironmentConfig, getEarthdataConfig } from '../../../../../sharedUtils/config'
 
 /**
  * Request object for timeline specific requests
@@ -14,12 +14,12 @@ export default class TimelineRequest extends CmrRequest {
       this.authToken = authToken
       this.searchPath = 'granules/timeline'
     } else {
-      // super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
-      const domain = window.location.origin.split(':')
-      const cmrdomain = `http:${domain[1]}:3003`
-      super(cmrdomain, earthdataEnvironment)
+      super(getEarthdataConfig(earthdataEnvironment).cmrHost, earthdataEnvironment)
+      // const domain = window.location.origin.split(':')
+      // const cmrdomain = `http:${domain[1]}:3003`
+      // super(cmrdomain, earthdataEnvironment)
 
-      this.searchPath = 'granules/timeline'
+      this.searchPath = 'search/granules/timeline'
     }
   }
 
