@@ -164,14 +164,8 @@ export default class CollectionRequest extends CmrRequest {
       const w = getApplicationConfig().thumbnailSize.width
 
       if (collection.id) {
-        const domain = window.location.origin.split(':')
-        const { secureDDS } = getApplicationConfig()
-        let protocol = 'http'
-        if (secureDDS) {
-          protocol = 'https'
-        }
         transformedCollection.thumbnail = collection.browse_flag
-          ? `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
+          ? `${getEarthdataConfig(this.earthdataEnvironment).cmrHost}/browse-scaler/browse_images/datasets/${collection.id}?h=${h}&w=${w}`
           : unavailableImg
       }
 

@@ -96,13 +96,7 @@ export default class GranuleRequest extends CmrRequest {
 
       if (granule.id) {
         // eslint-disable-next-line
-        const domain = window.location.origin.split(':')
-        const { secureDDS } = getApplicationConfig()
-        let protocol = 'http'
-        if (secureDDS) {
-          protocol = 'https'
-        }
-        updatedGranule.thumbnail = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
+        updatedGranule.thumbnail = `${getEarthdataConfig(this.earthdataEnvironment).cmrHost}/browse-scaler/browse_images/granules/${granule.id}?h=${h}&w=${w}`
       }
 
       if (granule.links && granule.links.length > 0) {

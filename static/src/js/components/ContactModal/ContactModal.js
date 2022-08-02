@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {
   Form
 } from 'react-bootstrap'
-import { getApplicationConfig } from '../../../../../sharedUtils/config'
 
 import './style.css'
 
@@ -13,17 +12,16 @@ class ContactModal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      newName: '',
       userName: '',
       userEmail: ''
     }
   }
 
-  onNameChange(event) {
+  onNameChange = (event) => {
     this.setState({ userName: event.target.value })
   }
 
-  onEmailChange(event) {
+  onEmailChange = (event) => {
     this.setState({ userEmail: event.target.value })
   }
 
@@ -33,15 +31,7 @@ class ContactModal extends Component {
       closeCallback
     } = this.props
 
-    const domain = window.location.origin.split(':')
-    const { secureDDS } = getApplicationConfig()
-
-    let workingUrl = url
-    if (secureDDS) {
-      workingUrl = url.replace('http:', 'https:')
-    }
-    const newUrl = workingUrl.replace('//localhost', domain[1])
-    const response = await fetch(newUrl, {
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -62,7 +52,8 @@ class ContactModal extends Component {
     } = this.props
 
     const {
-      props
+      userName,
+      userEmail
     } = this.state
 
     const showHideClassName = show ? 'modal display-block' : 'modal display-none'
@@ -87,7 +78,7 @@ Submit Request for
                 size="m"
                 type="text"
                 placeholder="Your Name"
-                value={props}
+                value={userName}
                 onChange={this.onNameChange}
               />
             </Form.Group>
@@ -104,7 +95,7 @@ Submit Request for
                 size="m"
                 type="email"
                 placeholder="Your Email"
-                value={props}
+                value={userEmail}
                 onChange={this.onEmailChange}
               />
             </Form.Group>

@@ -22,6 +22,7 @@ import crsProjections from '../../util/map/crs'
 import projections from '../../util/map/projections'
 import murmurhash3 from '../../util/murmurhash3'
 
+import { getEarthdataEnvironment } from '../../selectors/earthdataEnvironment'
 import { getFocusedCollectionId } from '../../selectors/focusedCollection'
 import { getFocusedGranuleId } from '../../selectors/focusedGranule'
 import { getFocusedCollectionGranuleResults } from '../../selectors/collectionResults'
@@ -38,6 +39,7 @@ import ProjectionSwitcher from '../../components/Map/ProjectionSwitcher'
 import ShapefileLayer from '../../components/Map/ShapefileLayer'
 import ZoomHome from '../../components/Map/ZoomHome'
 import GranulePlotter from '../../components/Map/GranulePlotter'
+
 
 import '../../util/map/sphericalPolygon'
 
@@ -84,7 +86,8 @@ export const mapStateToProps = state => ({
   project: state.project,
   router: state.router,
   shapefile: state.shapefile,
-  hiddenGranules: state.query.granuleVisiblity.hiddenGranules
+  hiddenGranules: state.query.granuleVisiblity.hiddenGranules,
+  earthdataEnvironment: getEarthdataEnvironment(state)
 })
 
 export class MapContainer extends Component {
@@ -255,7 +258,8 @@ export class MapContainer extends Component {
       onMetricsMap,
       onToggleTooManyPointsModal,
       onUpdateShapefile,
-      hiddenGranules
+      hiddenGranules,
+      earthdataEnvironment
     } = this.props
 
     const { location } = router
@@ -471,6 +475,7 @@ export class MapContainer extends Component {
         />
         <GranuleImageContainer />
         <GranulePlotter
+          earthdataEnvironment={earthdataEnvironment}
           collectionsMetadata={collectionsMetadata}
           focusedCollectionId={focusedCollectionId}
           granules={nonExcludedGranules}
@@ -512,7 +517,8 @@ MapContainer.propTypes = {
   onMetricsMap: PropTypes.func.isRequired,
   onToggleTooManyPointsModal: PropTypes.func.isRequired,
   onUpdateShapefile: PropTypes.func.isRequired,
-  hiddenGranules: PropTypes.arrayOf(PropTypes.string).isRequired
+  hiddenGranules: PropTypes.arrayOf(PropTypes.string).isRequired,
+  earthdataEnvironment: PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapContainer)

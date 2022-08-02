@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ImageOverlay } from 'react-leaflet'
 import L from 'leaflet'
-import { getApplicationConfig } from '../../../../../sharedUtils/config'
+import { getEarthdataConfig } from '../../../../../sharedUtils/config'
 
 const GranulePlotter = (props) => {
   const {
@@ -11,7 +11,8 @@ const GranulePlotter = (props) => {
     granules,
     granulesMetadata,
     isProjectPage,
-    project
+    project,
+    earthdataEnvironment
   } = props
 
   const layers = {}
@@ -59,15 +60,9 @@ const GranulePlotter = (props) => {
     if (layers[focusedCollectionId].granules.byId) {
       const collectionGranules = layers[focusedCollectionId].granules.byId
       const keys = Object.keys(collectionGranules)
-      const domain = window.location.origin.split(':')
-      const { secureDDS } = getApplicationConfig()
-      let protocol = 'http'
-      if (secureDDS) {
-        protocol = 'https'
-      }
       keys.forEach((key) => {
         if (collectionGranules[key].browseUrl) {
-          const localimageSrc = `${protocol}://${domain[1]}:8081/browse-scaler/browse_images/granules/${collectionGranules[key].id}?h=512&w=512`
+          const localimageSrc = `${getEarthdataConfig(earthdataEnvironment).cmrHost}/browse-scaler/browse_images/granules/${collectionGranules[key].id}?h=512&w=512`
           if (collectionGranules[key].boxes) {
             if (collectionGranules[key].boxes.length > 0) {
               const boundstext = collectionGranules[key].boxes[0].split(' ')
@@ -123,6 +118,7 @@ const GranulePlotter = (props) => {
 }
 
 GranulePlotter.propTypes = {
+  earthdataEnvironment: PropTypes.string.isRequired,
   collectionsMetadata: PropTypes.shape({}).isRequired,
   focusedCollectionId: PropTypes.string.isRequired,
   granules: PropTypes.shape({}).isRequired,
