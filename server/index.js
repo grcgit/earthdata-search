@@ -2,6 +2,7 @@ const express = require('express')
 const fs = require('fs')
 const http = require('http')
 const https = require('https')
+const path = require('path')
 
 const secretConfig = require('./secret-config')
 
@@ -12,8 +13,8 @@ const {
 
 app.use(express.static('../static/dist'))
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../static/dist', 'index.html'))
 })
 
 if (secretConfig.USE_HTTPS) {
