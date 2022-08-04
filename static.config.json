@@ -44,9 +44,7 @@
       "background": "eed-PORTAL-ENV-serverless-background",
       "client": "eed-PORTAL-ENV-serverless-client",
       "lambda": "eed-PORTAL-ENV-serverless-lambda"
-    },
-    "secureDDS": false,
-    "secureCMR": false
+    }
   },
   "environment": {
     "test": {
